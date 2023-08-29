@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:im2alone/product/consts/radius/project_radius.dart';
 
-import '../../consts/colors/project_colors.dart';
-
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppbar({super.key, required this.title, this.leading, this.actions, this.bgColor});
   final String title;
@@ -17,11 +15,10 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
       child: AppBar(
         actions: actions,
         leading: leading,
-        iconTheme: const IconThemeData(color: ProjectColors.white),
-        backgroundColor: bgColor ?? ProjectColors.primaryColor,
+        iconTheme: IconThemeData(color: Theme.of(context).colorScheme.surface),
         title: Text(
           title,
-          style: const TextStyle(color: ProjectColors.black),
+          style: TextStyle(color: Theme.of(context).colorScheme.surface, fontWeight: FontWeight.bold),
         ),
       ),
     );

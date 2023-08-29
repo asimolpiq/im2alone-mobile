@@ -15,7 +15,6 @@ class _MainViewState extends MainViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(toolbarHeight: 0),
       extendBodyBehindAppBar: true,
       extendBody: true,
       body: TabBarView(

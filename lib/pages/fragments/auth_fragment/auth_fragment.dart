@@ -16,12 +16,11 @@ class AuthFragment extends StatefulWidget {
 class _AuthFragmentState extends AuthFragmentViewmodel {
   @override
   Widget build(BuildContext context) {
-    return Obx(() => SafeArea(
-            child: switch (fragmentController.authState.value) {
+    return Obx(() => switch (fragmentController.authState.value) {
           AuthStates.login => const LoginView(),
           AuthStates.register => const Text("Register"),
           AuthStates.forgotPassword => const Text("Forgot Password"),
           AuthStates.myAccount => const MyAccount(),
-        }));
+        });
   }
 }
