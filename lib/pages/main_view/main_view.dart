@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:im2alone/pages/main_view/viewmodel/main_view_model.dart';
+import 'package:im2alone/product/consts/radius/project_radius.dart';
 import 'package:im2alone/product/enums/project_enums.dart';
 
 class MainView extends StatefulWidget {
@@ -12,10 +13,10 @@ class MainView extends StatefulWidget {
 
 class _MainViewState extends MainViewModel {
   @override
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(toolbarHeight: 0),
+      // appBar: AppBar(toolbarHeight: 0),
+      extendBodyBehindAppBar: true,
       extendBody: true,
       body: TabBarView(
         physics: const NeverScrollableScrollPhysics(),
@@ -24,8 +25,9 @@ class _MainViewState extends MainViewModel {
       ),
       bottomNavigationBar: Obx(
         () => ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(50)),
+          borderRadius: const ProjectRadius.onlyTop30(),
           child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
             elevation: 1,
             currentIndex: currentIndex.value,
             onTap: (index) {
@@ -47,6 +49,12 @@ class _MainViewState extends MainViewModel {
                   Icons.menu_book_outlined,
                 ),
                 label: 'my_diary'.tr,
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(
+                  Icons.search_outlined,
+                ),
+                label: 'search'.tr,
               ),
               authController.isLogin.value
                   ? BottomNavigationBarItem(

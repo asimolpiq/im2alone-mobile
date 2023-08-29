@@ -4,6 +4,7 @@ import 'package:im2alone/core/controller/auth_controller.dart';
 import 'package:im2alone/core/controller/fragment_controller.dart';
 import 'package:im2alone/pages/feeds/feeds_view.dart';
 import 'package:im2alone/pages/fragments/auth_fragment/auth_fragment.dart';
+import 'package:im2alone/pages/search/search_view.dart';
 
 import '../../my_diary/my_diary_view.dart';
 import '../main_view.dart';
@@ -26,6 +27,7 @@ abstract class MainViewModel extends State<MainView> with SingleTickerProviderSt
   final List<Widget> pages = [
     const FeedsView(),
     const MyDiaryView(),
+    const SearchView(),
     const AuthFragment(),
   ];
 }

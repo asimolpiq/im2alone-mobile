@@ -9,6 +9,12 @@ class ProductTranslations extends Translations {
           'my_diary': 'My Diary',
           'my_account': 'My Account',
           'login': 'Login',
+          'register': 'Register',
+          'email': 'Email',
+          'password': 'Password',
+          'forgot_password': 'Forgot Password',
+          'search': 'Search',
+          'search_hint': 'Search for a user',
         }
       };
 }

@@ -2,23 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:im2alone/product/components/appbar/custom_appbar.dart';
 
-class FeedsView extends StatefulWidget {
-  const FeedsView({super.key});
+class SearchView extends StatefulWidget {
+  const SearchView({super.key});
 
   @override
-  State<FeedsView> createState() => _FeedsViewState();
+  State<SearchView> createState() => _SearchViewState();
 }
 
-class _FeedsViewState extends State<FeedsView> {
+class _SearchViewState extends State<SearchView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        title: 'all_feeds'.tr,
+        title: 'search'.tr,
       ),
+      extendBody: true,
       body: const Center(
         child: Text(
-          'FeedsView is working',
+          'SearchView is working',
           style: TextStyle(fontSize: 20),
         ),
       ),

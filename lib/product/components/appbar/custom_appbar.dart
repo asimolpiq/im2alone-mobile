@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:im2alone/product/consts/radius/project_radius.dart';
 
 import '../../consts/colors/project_colors.dart';
 
@@ -12,10 +13,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: const BorderRadius.only(
-        bottomLeft: Radius.circular(15),
-        bottomRight: Radius.circular(15),
-      ),
+      borderRadius: const ProjectRadius.appbarRadius(),
       child: AppBar(
         actions: actions,
         leading: leading,
