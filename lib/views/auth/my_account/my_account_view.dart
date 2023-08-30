@@ -23,12 +23,15 @@ class _MyAccountState extends MyAccountViewModel {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            const ProjectSpacers.spacer30(),
             CircleAvatar(
-              radius: 50,
-              backgroundImage: NetworkImage(Config['SITE_URL'] + authController.currentUser.value.pp ??
-                  "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"),
+              radius: 100,
+              backgroundImage: NetworkImage(
+                Config['SITE_URL'] + authController.currentUser.value.pp ??
+                    "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png",
+              ),
             ),
             const ProjectSpacers.spacer20(),
             Text(

@@ -16,7 +16,6 @@ class _MainViewState extends MainViewModel {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      extendBody: true,
       body: TabBarView(
         physics: const NeverScrollableScrollPhysics(),
         controller: tabController,
