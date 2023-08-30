@@ -1,6 +1,7 @@
 // ignore: constant_identifier_names
-const Map<String, String> Config = {
-  'api_base_url': 'http://localhost/im2alone',
+Map<String, dynamic> Config = {
+  'BASE_API_URL': 'http://192.168.1.89/im2alone/api/v1',
+  'SITE_URL': 'http://192.168.1.89/im2alone/',
   'APP_NAME': 'im2alone',
-  'version': '1.0.0'
+  'VERSION': '1.0.0'
 };

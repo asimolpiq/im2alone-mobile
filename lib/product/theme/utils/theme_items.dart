@@ -18,10 +18,10 @@ class _BottomNavBarThemeData extends BottomNavigationBarThemeData {
           type: BottomNavigationBarType.fixed,
           backgroundColor: AppColors.secondary,
           selectedIconTheme: const IconThemeData(
-            color: AppColors.white,
+            color: AppColors.primary,
           ),
-          selectedItemColor: AppColors.white,
-          unselectedItemColor: AppColors.primary,
+          selectedItemColor: AppColors.primary,
+          unselectedItemColor: AppColors.white,
           showSelectedLabels: true,
           showUnselectedLabels: true,
         );

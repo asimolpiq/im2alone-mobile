@@ -12,7 +12,7 @@ abstract class ProjectTheme {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         appBarTheme: const _AppBarTheme(),
         elevatedButtonTheme: _ElevatedButtonTheme(),
-        scaffoldBackgroundColor: AppColors.primary,
+        scaffoldBackgroundColor: AppColors.background,
         cardTheme: const _CardTheme(),
         canvasColor: AppColors.white,
         textTheme: const _TextTheme(),

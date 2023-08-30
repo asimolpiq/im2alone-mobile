@@ -11,6 +11,7 @@ class ProductTranslations extends Translations {
           'login': 'Login',
           'register': 'Register',
           'email': 'Email',
+          'username': 'Username',
           'password': 'Password',
           'forgot_password': 'Forgot Password',
           'search': 'Search',

@@ -12,7 +12,7 @@ class ProjectColorsScheme {
     brightness: Brightness.light,
     surface: AppColors.white,
     onSurface: AppColors.secondary,
-    background: AppColors.white,
+    background: AppColors.background,
     onBackground: AppColors.secondary,
     error: Colors.red,
     onError: AppColors.white,

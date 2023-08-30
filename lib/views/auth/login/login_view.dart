@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:im2alone/pages/auth/login/viewmodel/login_viewmodel.dart';
+import 'package:im2alone/model/auth/login_request_model.dart';
+import 'package:im2alone/views/auth/login/viewmodel/login_viewmodel.dart';
 import 'package:im2alone/product/components/appbar/custom_appbar.dart';
 import 'package:im2alone/product/components/auth/login_textfield.dart';
 import 'package:im2alone/product/consts/paddings/project_paddings.dart';
@@ -39,20 +40,22 @@ class _LoginViewState extends LoginViewmodel {
                   key: formKey,
                   child: Column(
                     children: [
-                      const LoginTextField(authTextFieldType: AuthTextFieldType.email),
+                      LoginTextField(
+                          authTextFieldType: AuthTextFieldType.username, textEditController: usernameController),
                       const ProjectSpacers.spacer20(),
-                      const LoginTextField(authTextFieldType: AuthTextFieldType.password),
+                      LoginTextField(
+                          authTextFieldType: AuthTextFieldType.password, textEditController: passwordController),
                       const ProjectSpacers.spacer50(),
-                      _authButton("login".tr, () {}),
+                      _authButton("login".tr),
                       const ProjectSpacers.spacer5(),
                       Divider(
-                        color: Theme.of(context).colorScheme.secondary,
+                        color: Theme.of(context).colorScheme.surface,
                         thickness: .1,
                         endIndent: Get.size.width / 16,
                         indent: Get.size.width / 16,
                       ),
                       const ProjectSpacers.spacer5(),
-                      _authButton("register".tr, () {}),
+                      _authButton("register".tr),
                     ],
                   ),
                 )
@@ -62,7 +65,7 @@ class _LoginViewState extends LoginViewmodel {
         ));
   }
 
-  Container _authButton(String text, Function onPressed) {
+  Container _authButton(String text) {
     return Container(
       color: AppColors.transparent,
       width: Get.size.width,
@@ -70,7 +73,10 @@ class _LoginViewState extends LoginViewmodel {
         onPressed: () {
           if (formKey.currentState!.validate()) {
             formKey.currentState!.save();
-            onPressed();
+            loginRequest(LoginRequestModel(
+              username: usernameController.text.trim(),
+              password: passwordController.text.trim(),
+            ));
           }
         },
         child: Text(
