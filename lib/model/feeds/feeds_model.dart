@@ -3,12 +3,16 @@ class FeedsModel {
   String? content;
   String? date;
   String? link;
+  String? friendName;
+  String? userId;
 
   FeedsModel({
     this.id,
     this.content,
     this.date,
     this.link,
+    this.friendName,
+    this.userId,
   });
 
   Map<String, dynamic> toJson() {
@@ -17,6 +21,8 @@ class FeedsModel {
       'content': content,
       'date': date,
       'link': link,
+      'friend_name': friendName,
+      'user_id': userId,
     };
   }
 
@@ -26,14 +32,17 @@ class FeedsModel {
       content: json['content'] as String?,
       date: json['date'] as String?,
       link: json['link'] as String?,
+      friendName: json['friend_name'] as String?,
+      userId: json['user_id'] as String?,
     );
   }
 
   @override
-  String toString() => "FeedsModel(id: $id,content: $content,date: $date,link: $link)";
+  String toString() =>
+      "FeedsModel(id: $id,content: $content,date: $date,link: $link,friendName: $friendName,userId: $userId)";
 
   @override
-  int get hashCode => Object.hash(id, content, date, link);
+  int get hashCode => Object.hash(id, content, date, link, friendName, userId);
 
   @override
   bool operator ==(Object other) =>
@@ -43,5 +52,7 @@ class FeedsModel {
           id == other.id &&
           content == other.content &&
           date == other.date &&
-          link == other.link;
+          link == other.link &&
+          friendName == other.friendName &&
+          userId == other.userId;
 }

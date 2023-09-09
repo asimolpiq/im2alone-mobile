@@ -5,8 +5,9 @@ import 'package:im2alone/core/controller/fragment_controller.dart';
 import 'package:im2alone/core/helpers/caching_manager.dart';
 import 'package:im2alone/core/helpers/request_helper.dart';
 import 'package:im2alone/model/auth/login_request_model.dart';
-import 'package:im2alone/product/enums/project_enums.dart';
+import 'package:im2alone/product/components/snackbar/custom_snacbars.dart';
 import 'package:im2alone/service/auth/auth_service.dart';
+import 'package:im2alone/views/main_view/main_view.dart';
 
 import '../login_view.dart';
 
@@ -32,20 +33,10 @@ abstract class LoginViewmodel extends State<LoginView> with CachingManager {
       authController.currentUser.value = response.user!;
       authController.isLogin.value = true;
       await saveToken(response.user?.token!);
-      fragmentController.authState.value = AuthStates.myAccount;
+      Get.offAll(() => const MainView());
     } else {
       if (mounted) {
-        Get.showSnackbar(GetSnackBar(
-          borderRadius: 15,
-          snackPosition: SnackPosition.BOTTOM,
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: kTextTabBarHeight),
-          backgroundColor: Theme.of(context).colorScheme.error,
-          messageText: Text(
-            response.error!,
-            style: TextStyle(color: Theme.of(context).colorScheme.surface),
-          ),
-          duration: const Duration(seconds: 3),
-        ));
+        Get.showSnackbar(CustomSnackbars.errorSnack(error: response.error!));
       }
     }
   }

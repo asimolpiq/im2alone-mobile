@@ -25,7 +25,7 @@ class _LoginViewState extends LoginViewmodel {
           title: 'login'.tr,
         ),
         body: Padding(
-          padding: ProjectPaddings.padding16,
+          padding: const ProjectPaddings.all16(),
           child: SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
             child: Column(

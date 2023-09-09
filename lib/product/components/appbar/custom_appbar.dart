@@ -18,6 +18,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
         iconTheme: IconThemeData(color: Theme.of(context).colorScheme.surface),
         title: Text(
           title,
+          overflow: TextOverflow.fade,
           style: TextStyle(color: Theme.of(context).colorScheme.surface, fontWeight: FontWeight.bold),
         ),
       ),

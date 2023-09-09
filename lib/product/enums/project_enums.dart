@@ -10,7 +10,6 @@ enum MainStates {
 }
 
 enum AuthStates {
-  login,
   register,
   forgotPassword,
   myAccount,

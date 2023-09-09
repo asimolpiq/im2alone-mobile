@@ -11,7 +11,7 @@ import '../main_view.dart';
 
 abstract class MainViewModel extends State<MainView> with SingleTickerProviderStateMixin {
   RxInt currentIndex = 0.obs;
-  FragmentController fragmentController = Get.put(FragmentController(), tag: "fragmentmanager");
+  FragmentController fragmentController = Get.find(tag: "fragmentmanager");
   AuthController authController = Get.find(tag: "authmanager");
   late TabController tabController;
 

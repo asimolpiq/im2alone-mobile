@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
-class ProjectPaddings {
-  static const EdgeInsets padding8 = EdgeInsets.all(8.0);
-  static const EdgeInsets padding16 = EdgeInsets.all(16.0);
+class ProjectPaddings extends EdgeInsets {
+  const ProjectPaddings.horiztontal10() : super.symmetric(horizontal: 10);
+  const ProjectPaddings.horiztontal16() : super.symmetric(horizontal: 16);
+  const ProjectPaddings.all8() : super.all(8);
+  const ProjectPaddings.all16() : super.all(16);
+  const ProjectPaddings.all20() : super.all(20);
+  const ProjectPaddings.marginBottom20() : super.only(bottom: 20);
 }

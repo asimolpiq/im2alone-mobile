@@ -19,7 +19,7 @@ class _SplashScreenState extends SplashViewmodel {
       body: Obx(
         () => Center(
           child: Padding(
-            padding: ProjectPaddings.padding8,
+            padding: const ProjectPaddings.all8(),
             child: AnimatedContainer(
               width: !isLoaded.value ? 0 : Get.size.width,
               curve: Curves.bounceOut,

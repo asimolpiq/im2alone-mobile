@@ -21,7 +21,6 @@ class AuthService extends IAuthService with CachingManager {
   Future<LoginResponseModel> login(LoginRequestModel loginRequestModel) async {
     try {
       final response = await dio.post(loginPath, data: loginRequestModel);
-
       if (response.statusCode == 200) {
         final parsedData = response.data;
 

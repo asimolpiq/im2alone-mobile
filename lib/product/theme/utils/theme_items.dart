@@ -61,6 +61,26 @@ class _TextTheme extends TextTheme {
             fontWeight: FontWeight.bold,
             color: AppColors.white,
           ),
+          bodyLarge: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.normal,
+            color: AppColors.white,
+          ),
+          bodyMedium: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.normal,
+            color: AppColors.white,
+          ),
+          bodySmall: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.normal,
+            color: AppColors.white,
+          ),
+          labelLarge: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: AppColors.secondary,
+          ),
         );
 }
 

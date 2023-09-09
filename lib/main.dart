@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ProjectTheme.createTheme(),
       home: const SplashScreen(),
       translations: ProductTranslations(),
-      locale: const Locale('en', 'US'),
+      locale: const Locale('tr', 'TR'),
     );
   }
 }

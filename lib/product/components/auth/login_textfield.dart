@@ -55,7 +55,7 @@ class _LoginTextFieldState extends State<LoginTextField> {
                   Icons.person_outline,
                   color: Theme.of(context).colorScheme.background,
                 ),
-          contentPadding: ProjectPaddings.padding16,
+          contentPadding: const ProjectPaddings.all16(),
           focusedBorder: ProjectInputBorder.authBorder(),
           suffixIcon: widget.authTextFieldType == AuthTextFieldType.password
               ? IconButton(
