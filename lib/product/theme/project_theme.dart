@@ -16,6 +16,8 @@ abstract class ProjectTheme {
         cardTheme: const _CardTheme(),
         canvasColor: AppColors.white,
         textTheme: const _TextTheme(),
+        iconTheme: const _IconTheme(),
+        listTileTheme: const _ListileTheme(),
         fontFamily: "Comfortaa",
         bottomNavigationBarTheme: const _BottomNavBarThemeData(),
         splashColor: AppColors.transparent,

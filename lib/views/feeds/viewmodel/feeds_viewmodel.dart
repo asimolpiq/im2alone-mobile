@@ -23,7 +23,7 @@ abstract class FeedsViewModel extends State<FeedsView> {
     isLoading.value = true;
     final response = await feedsService.getAllDiary();
     if (response.error == null) {
-      feedsList.value = response.feeds!;
+      feedsList.value = response.feeds ?? <FeedsModel>[];
       isLoading.value = false;
     } else {
       isLoading.value = false;

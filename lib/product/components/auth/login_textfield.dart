@@ -19,6 +19,7 @@ class _LoginTextFieldState extends State<LoginTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: Theme.of(context).textTheme.titleMedium,
       controller: widget.textEditController,
       validator: (value) {
         if (value == null || value.isEmpty) {

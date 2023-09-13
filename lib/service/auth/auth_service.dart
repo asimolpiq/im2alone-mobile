@@ -36,7 +36,7 @@ class AuthService extends IAuthService with CachingManager {
       log(e.toString());
       return LoginResponseModel.withError(e.toString());
     }
-    return LoginResponseModel.withError('Function');
+    return LoginResponseModel.withError('-');
   }
 
   @override
@@ -61,6 +61,6 @@ class AuthService extends IAuthService with CachingManager {
       log(e.toString());
       return LoginResponseModel.withError(e.toString());
     }
-    return LoginResponseModel.withError('Function');
+    return LoginResponseModel.withError('-');
   }
 }

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:im2alone/core/helpers/caching_manager.dart';
 
@@ -38,13 +36,12 @@ class RequestHelper with CachingManager {
       },
       onResponse: (Response response, ResponseInterceptorHandler handler) async {
         if (response.data != null && response.data.runtimeType == String) {
-          var data = jsonDecode(response.data);
-          if (data["error"].toString() == "unauthorized") {
+          var data = response.data;
+          if (data["data"].toString() == "unauthorized") {
             removeToken();
-            // Diğer işlemler
           }
         }
-        return handler.next(response); // continue
+        return handler.next(response);
       },
       onError: (e, ErrorInterceptorHandler handler) {
         return handler.next(e);

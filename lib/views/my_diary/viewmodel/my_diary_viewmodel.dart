@@ -23,7 +23,7 @@ abstract class MyDiaryViewmodel extends State<MyDiaryView> {
     isLoading.value = true;
     final response = await feedsService.getMyDiary();
     if (response.error == null) {
-      feedsList.value = response.feeds!;
+      feedsList.value = response.feeds ?? [];
       isLoading.value = false;
     } else {
       isLoading.value = false;

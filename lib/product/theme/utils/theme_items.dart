@@ -102,3 +102,17 @@ class _ElevatedButtonTheme extends ElevatedButtonThemeData {
           ),
         );
 }
+
+class _IconTheme extends IconThemeData {
+  const _IconTheme()
+      : super(
+          color: AppColors.white,
+        );
+}
+
+class _ListileTheme extends ListTileThemeData {
+  const _ListileTheme()
+      : super(
+          iconColor: AppColors.white,
+        );
+}

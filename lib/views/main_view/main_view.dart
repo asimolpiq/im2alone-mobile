@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:im2alone/product/theme/colors/app_colors.dart';
+
 import 'package:im2alone/views/main_view/viewmodel/main_view_model.dart';
 import 'package:im2alone/product/consts/radius/project_radius.dart';
 import 'package:im2alone/product/enums/project_enums.dart';
-import 'package:im2alone/views/write_diary/write_diary_view.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});
@@ -52,9 +51,9 @@ class _MainViewState extends MainViewModel {
               ),
               BottomNavigationBarItem(
                 icon: const Icon(
-                  Icons.search_outlined,
+                  Icons.post_add_outlined,
                 ),
-                label: 'search'.tr,
+                label: 'write_diary'.tr,
               ),
               authController.isLogin.value
                   ? BottomNavigationBarItem(
@@ -73,25 +72,6 @@ class _MainViewState extends MainViewModel {
           ),
         ),
       ),
-      floatingActionButton: Container(
-        margin: const EdgeInsets.only(top: 20),
-        child: FloatingActionButton(
-          isExtended: true,
-          splashColor: AppColors.transparent,
-          mini: true,
-          elevation: 8,
-          shape: const CircleBorder(),
-          child: Icon(
-            Icons.add,
-            color: Theme.of(context).colorScheme.background,
-          ),
-          onPressed: () => Get.to(
-            () => const WriteDiaryView(),
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
     );
   }
 }

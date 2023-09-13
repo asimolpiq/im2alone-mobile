@@ -1,11 +1,14 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:im2alone/product/consts/paddings/project_paddings.dart';
 import 'package:im2alone/product/consts/spacers/project_spacers.dart';
 import 'package:im2alone/views/auth/login/login_view.dart';
 import 'package:im2alone/views/auth/my_account/viewmodel/my_account_viewmodel.dart';
 import 'package:im2alone/product/components/appbar/custom_appbar.dart';
-
+import '../../../product/components/buttons/profile_button.dart';
 import '../../../product/config/config.dart';
+part './my_account_items.dart';
 
 class MyAccount extends StatefulWidget {
   const MyAccount({super.key});
@@ -21,35 +24,42 @@ class _MyAccountState extends MyAccountViewModel {
       appBar: CustomAppbar(
         title: 'my_account'.tr,
       ),
-      body: Center(
+      body: Padding(
+        padding: const ProjectPaddings.all8(),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const ProjectSpacers.spacer30(),
-            CircleAvatar(
-              radius: 100,
-              backgroundImage: NetworkImage(
-                Config['SITE_URL'] + authController.currentUser.value.pp ??
-                    "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png",
+            _profileHeader(context, authController.currentUser.value.username, authController.currentUser.value.bio,
+                authController.currentUser.value.pp),
+            ProfileButtton(
+              icon: const Icon(
+                Icons.edit_note,
               ),
+              onPressed: () {},
+              text: 'edit_profile'.tr,
             ),
-            const ProjectSpacers.spacer20(),
-            Text(
-              "username: ${authController.currentUser.value.username ?? "No username"}",
-              style: TextStyle(fontSize: 20, color: Theme.of(context).colorScheme.surface),
+            ProfileButtton(
+              icon: const Icon(
+                Icons.password,
+              ),
+              onPressed: () {},
+              text: 'change_password'.tr,
             ),
-            const ProjectSpacers.spacer20(),
-            Text(
-              "bio: ${authController.currentUser.value.bio ?? "No username"}",
-              style: TextStyle(fontSize: 20, color: Theme.of(context).colorScheme.surface),
+            ProfileButtton(
+                onPressed: () {},
+                text: "change_lang".tr,
+                icon: const Icon(
+                  Icons.language,
+                )),
+            ProfileButtton(
+              onPressed: () {
+                Get.offAll(() => const LoginView());
+                authController.logout();
+              },
+              text: "logout".tr,
+              icon: Icon(Icons.logout, color: Theme.of(context).colorScheme.error),
+              textColor: Theme.of(context).colorScheme.error,
             ),
-            const ProjectSpacers.spacer20(),
-            ElevatedButton(
-                onPressed: () {
-                  Get.offAll(() => const LoginView());
-                  authController.logout();
-                },
-                child: const Text("Logout"))
           ],
         ),
       ),

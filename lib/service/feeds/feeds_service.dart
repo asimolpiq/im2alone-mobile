@@ -7,10 +7,12 @@ abstract class IFeedsService {
   final String myDiaryPath = '/my-diary.php';
   final String allDiaryPath = '/all-feeds.php';
   final String deleteDiaryPath = '/delete-diary.php';
+  final String writeDiaryPath = '/write-diary.php';
   IFeedsService(this.dio);
   Future<FeedsResponseModel> getMyDiary();
   Future<FeedsResponseModel> getAllDiary();
   Future<bool> deleteDiary(String id);
+  Future<bool> writeDiary({required String content, required String link, required String privacy});
 }
 
 class FeedsService extends IFeedsService {
@@ -61,6 +63,28 @@ class FeedsService extends IFeedsService {
       if (response.statusCode == 200) {
         final parsedData = response.data;
 
+        if (parsedData['status'] == "success") {
+          return true;
+        } else {
+          return false;
+        }
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> writeDiary({required String content, required String link, required String privacy}) async {
+    try {
+      final response = await dio.post(writeDiaryPath, data: {
+        "content": content,
+        "link": link,
+        "privacy": privacy,
+      });
+      if (response.statusCode == 200) {
+        final parsedData = response.data;
         if (parsedData['status'] == "success") {
           return true;
         } else {
