@@ -39,8 +39,12 @@ class ProductTranslations extends Translations {
           'change_password': 'Change Password',
           'change_lang': 'Change Language',
           'no_diary': 'No Diary Yet',
+          'user_not_found': 'User not found!',
+          'search_friend': 'Search for a friend',
         },
         'tr_TR': {
+          'search_friend': 'Bir arkadaş ara',
+          'user_not_found': 'Kullanıcı bulunamadı!',
           'no_diary': 'Henüz Günlük Yok',
           'change_lang': 'Dili Değiştir',
           'change_password': 'Şifre Değiştir',

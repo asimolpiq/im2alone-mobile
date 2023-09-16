@@ -1,6 +1,6 @@
 part of './my_account_view.dart';
 
-Card _profileHeader(BuildContext context, String? username, String? bio, String? pp) {
+Card _profileHeader(BuildContext context, String? username, String? bio, String? pp, UserStatsModel? userStats) {
   return Card(
     elevation: 0,
     color: Theme.of(context).colorScheme.secondary,
@@ -57,13 +57,13 @@ Card _profileHeader(BuildContext context, String? username, String? bio, String?
               Text("Takip"),
             ],
           ),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("12"),
-              Text("12"),
-              Text("12"),
+              Text(userStats != null ? "${userStats.diaryCount ?? 0}" : "0"),
+              Text(userStats != null ? "${userStats.followerCount ?? 0}" : "0"),
+              Text(userStats != null ? "${userStats.followingCount ?? 0}" : "0"),
             ],
           )
         ],

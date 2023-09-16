@@ -12,7 +12,8 @@ import 'viewmodel/feeds_detail_viewmodel.dart';
 
 class FeedsDetailView extends StatefulWidget {
   final FeedsModel feed;
-  const FeedsDetailView({super.key, required this.feed});
+  final Function? callback;
+  const FeedsDetailView({super.key, required this.feed, this.callback});
 
   @override
   State<FeedsDetailView> createState() => _FeedsDetailViewState();

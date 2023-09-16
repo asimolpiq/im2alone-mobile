@@ -3,9 +3,10 @@ import 'package:im2alone/product/theme/colors/app_colors.dart';
 
 import '../../consts/input_borders/project_input_borders.dart';
 import '../../consts/paddings/project_paddings.dart';
+import '../../theme/project_theme.dart';
 
 class CustomInputDecoration extends InputDecoration {
-  CustomInputDecoration.textDecoration({required String hintText})
+  CustomInputDecoration.textDecoration([String hintText = ""])
       : super(
           fillColor: AppColors.secondary,
           filled: true,
@@ -17,7 +18,7 @@ class CustomInputDecoration extends InputDecoration {
           contentPadding: const ProjectPaddings.all16(),
           focusedBorder: ProjectInputBorder.formBorder(),
         );
-  CustomInputDecoration.dropdownDecoration({required String hintText})
+  CustomInputDecoration.dropdownDecoration([String hintText = ""])
       : super(
           fillColor: AppColors.secondary,
           filled: true,
@@ -25,6 +26,19 @@ class CustomInputDecoration extends InputDecoration {
           border: ProjectInputBorder.formBorder(),
           hintText: hintText,
           hintStyle: const TextStyle(color: AppColors.white),
+          contentPadding: const ProjectPaddings.all16(),
+          focusedBorder: ProjectInputBorder.formBorder(),
+        );
+
+  CustomInputDecoration.searchDecoration([String hintText = "", Widget? prefixIcon])
+      : super(
+          fillColor: AppColors.secondary,
+          filled: true,
+          prefixIcon: prefixIcon,
+          enabledBorder: ProjectInputBorder.formBorder(),
+          border: ProjectInputBorder.formBorder(),
+          hintText: hintText,
+          hintStyle: ProjectTheme.createTheme().textTheme.titleMedium?.copyWith(color: AppColors.white, fontSize: 22),
           contentPadding: const ProjectPaddings.all16(),
           focusedBorder: ProjectInputBorder.formBorder(),
         );

@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:im2alone/model/user_utils/user_stats_model.dart';
 import 'package:im2alone/product/consts/paddings/project_paddings.dart';
 import 'package:im2alone/product/consts/spacers/project_spacers.dart';
 import 'package:im2alone/views/auth/login/login_view.dart';
@@ -29,8 +30,10 @@ class _MyAccountState extends MyAccountViewModel {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            _profileHeader(context, authController.currentUser.value.username, authController.currentUser.value.bio,
-                authController.currentUser.value.pp),
+            Obx(() {
+              return _profileHeader(context, authController.currentUser.value.username,
+                  authController.currentUser.value.bio, authController.currentUser.value.pp, userStats.value);
+            }),
             ProfileButtton(
               icon: const Icon(
                 Icons.edit_note,

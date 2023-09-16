@@ -42,6 +42,8 @@ abstract class WriteDiaryViewmodel extends State<WriteDiaryView> {
         contentController.clear();
         linkController.clear();
         privacyController.clear();
+        widget.callback != null ? widget.callback!() : null;
+        Get.back();
         Get.showSnackbar(CustomSnackbars.successSnack(message: 'diary_added_successfully'.tr));
       } else {
         changeLoading();

@@ -51,9 +51,9 @@ class _MainViewState extends MainViewModel {
               ),
               BottomNavigationBarItem(
                 icon: const Icon(
-                  Icons.post_add_outlined,
+                  Icons.search,
                 ),
-                label: 'write_diary'.tr,
+                label: 'search'.tr,
               ),
               authController.isLogin.value
                   ? BottomNavigationBarItem(

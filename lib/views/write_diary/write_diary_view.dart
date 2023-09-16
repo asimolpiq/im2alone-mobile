@@ -8,7 +8,8 @@ import 'package:im2alone/product/consts/spacers/project_spacers.dart';
 import 'package:im2alone/views/write_diary/viewmodel/write_diary_viewmodel.dart';
 
 class WriteDiaryView extends StatefulWidget {
-  const WriteDiaryView({super.key});
+  final Function? callback;
+  const WriteDiaryView({super.key, this.callback});
 
   @override
   State<WriteDiaryView> createState() => _WriteDiaryViewState();
@@ -30,7 +31,7 @@ class _WriteDiaryViewState extends WriteDiaryViewmodel {
                     controller: contentController,
                     style: Theme.of(context).textTheme.bodySmall,
                     decoration: CustomInputDecoration.textDecoration(
-                      hintText: 'write_feels'.tr,
+                      'write_feels'.tr,
                     ),
                     maxLines: 15,
                     validator: (value) {
@@ -45,7 +46,7 @@ class _WriteDiaryViewState extends WriteDiaryViewmodel {
                     controller: linkController,
                     style: Theme.of(context).textTheme.bodySmall,
                     decoration: CustomInputDecoration.textDecoration(
-                      hintText: 'link'.tr,
+                      'link'.tr,
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -64,7 +65,7 @@ class _WriteDiaryViewState extends WriteDiaryViewmodel {
                     borderRadius: ProjectRadius.circular30(),
                     isExpanded: true,
                     decoration: CustomInputDecoration.dropdownDecoration(
-                      hintText: 'privacy'.tr,
+                      'privacy'.tr,
                     ),
                     items: privacyList,
                     onChanged: (value) {

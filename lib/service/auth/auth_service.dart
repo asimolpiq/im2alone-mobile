@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:im2alone/core/helpers/caching_manager.dart';
 import 'package:im2alone/model/auth/login_request_model.dart';
@@ -33,7 +31,6 @@ class AuthService extends IAuthService with CachingManager {
         LoginResponseModel.withError(response.data['error']);
       }
     } catch (e) {
-      log(e.toString());
       return LoginResponseModel.withError(e.toString());
     }
     return LoginResponseModel.withError('-');
@@ -58,7 +55,6 @@ class AuthService extends IAuthService with CachingManager {
         LoginResponseModel.withError(response.data['error']);
       }
     } catch (e) {
-      log(e.toString());
       return LoginResponseModel.withError(e.toString());
     }
     return LoginResponseModel.withError('-');

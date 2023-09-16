@@ -25,17 +25,21 @@ class _FeedsViewState extends FeedsViewModel {
         appBar: CustomAppbar(
           title: 'all_feeds'.tr,
         ),
-        body: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
-          child: Padding(
-            padding: const ProjectPaddings.all8(),
+        body: Padding(
+          padding: const ProjectPaddings.all8(),
+          child: RefreshIndicator(
+            backgroundColor: Theme.of(context).colorScheme.secondary,
+            color: Theme.of(context).colorScheme.primary,
+            onRefresh: () async {
+              await getMyDiary();
+            },
             child: Obx(
               () => !isLoading.value
                   ? feedsList.isNotEmpty
                       ? ListView.builder(
-                          physics: const ClampingScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: feedsList.length,
+                          physics: const ClampingScrollPhysics(),
                           itemBuilder: (context, index) {
                             return Card(
                               elevation: 0,
