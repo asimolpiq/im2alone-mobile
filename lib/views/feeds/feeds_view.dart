@@ -39,7 +39,6 @@ class _FeedsViewState extends FeedsViewModel {
                       ? ListView.builder(
                           shrinkWrap: true,
                           itemCount: feedsList.length,
-                          physics: const ClampingScrollPhysics(),
                           itemBuilder: (context, index) {
                             return Card(
                               elevation: 0,

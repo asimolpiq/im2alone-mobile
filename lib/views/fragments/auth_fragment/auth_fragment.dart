@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:im2alone/views/auth/my_account/my_account_view.dart';
 import 'package:im2alone/product/enums/project_enums.dart';
 
+import '../../account/my_account/my_account_view.dart';
 import 'viewmodel/auth_fragment_viewmodel.dart';
 
 class AuthFragment extends StatefulWidget {

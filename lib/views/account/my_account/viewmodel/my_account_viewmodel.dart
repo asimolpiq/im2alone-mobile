@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:im2alone/core/controller/auth_controller.dart';
 import 'package:im2alone/core/controller/fragment_controller.dart';
 import 'package:im2alone/product/mixins/get_user_stats_mixin.dart';
-import 'package:im2alone/views/auth/my_account/my_account_view.dart';
 
 import '../../../../model/user_utils/user_stats_model.dart';
 import '../../../../product/components/snackbar/custom_snacbars.dart';
+import '../my_account_view.dart';
 
 abstract class MyAccountViewModel extends State<MyAccount> with GetUserStats {
   final AuthController authController = Get.find(tag: "authmanager");

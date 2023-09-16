@@ -42,4 +42,19 @@ class CustomInputDecoration extends InputDecoration {
           contentPadding: const ProjectPaddings.all16(),
           focusedBorder: ProjectInputBorder.formBorder(),
         );
+  CustomInputDecoration.profileInput([String hintText = "", Widget? prefixIcon, Widget? suffixIcon])
+      : super(
+          fillColor: AppColors.secondary,
+          labelText: hintText,
+          labelStyle:
+              ProjectTheme.createTheme().textTheme.titleMedium?.copyWith(color: AppColors.primary, fontSize: 22),
+          filled: true,
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
+          enabledBorder: ProjectInputBorder.formBorder(),
+          border: ProjectInputBorder.formBorder(),
+          hintStyle: ProjectTheme.createTheme().textTheme.titleMedium?.copyWith(color: AppColors.white, fontSize: 22),
+          contentPadding: const ProjectPaddings.all16(),
+          focusedBorder: ProjectInputBorder.formBorder(),
+        );
 }

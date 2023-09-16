@@ -5,10 +5,12 @@ import 'package:im2alone/model/user_utils/user_stats_model.dart';
 import 'package:im2alone/product/consts/paddings/project_paddings.dart';
 import 'package:im2alone/product/consts/spacers/project_spacers.dart';
 import 'package:im2alone/views/auth/login/login_view.dart';
-import 'package:im2alone/views/auth/my_account/viewmodel/my_account_viewmodel.dart';
 import 'package:im2alone/product/components/appbar/custom_appbar.dart';
 import '../../../product/components/buttons/profile_button.dart';
 import '../../../product/config/config.dart';
+import '../change_password/change_password_view.dart';
+import '../edit_profile/edit_profile_view.dart';
+import 'viewmodel/my_account_viewmodel.dart';
 part './my_account_items.dart';
 
 class MyAccount extends StatefulWidget {
@@ -42,14 +44,18 @@ class _MyAccountState extends MyAccountViewModel {
               icon: const Icon(
                 Icons.edit_note,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => const EditProfileView());
+              },
               text: 'edit_profile'.tr,
             ),
             ProfileButtton(
               icon: const Icon(
                 Icons.password,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => const ChangePasswordView());
+              },
               text: 'change_password'.tr,
             ),
             ProfileButtton(

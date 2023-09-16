@@ -6,8 +6,12 @@ abstract class IUserService {
   final Dio dio;
   final String userStatsPath = '/user-stats.php';
   final String searchPath = '/search.php';
+  final String editProfilePath = '/edit-profile.php';
+  final String changePasswordPath = '/change-password.php';
   Future<UserStatsResponseModel> getStats(String id);
   Future<SearchResponseModel> search(String query);
+  Future<bool> editProfile(String username, String fullname, String bio);
+  Future<bool> changePassword(String newPassword);
 
   IUserService(this.dio);
 }
@@ -54,5 +58,43 @@ class UserService extends IUserService {
       return SearchResponseModel.withError(e.toString());
     }
     return SearchResponseModel.withError('-');
+  }
+
+  @override
+  Future<bool> editProfile(String username, String fullname, String bio) async {
+    try {
+      final response = await dio.post(editProfilePath, data: {"username": username, "fullname": fullname, "bio": bio});
+      if (response.statusCode == 200) {
+        final parsedData = response.data;
+        if (parsedData['status'] == "error") {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> changePassword(String newPassword) async {
+    try {
+      final response = await dio.post(changePasswordPath, data: {"new_password": newPassword});
+      if (response.statusCode == 200) {
+        final parsedData = response.data;
+        if (parsedData['status'] == "error") {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
   }
 }

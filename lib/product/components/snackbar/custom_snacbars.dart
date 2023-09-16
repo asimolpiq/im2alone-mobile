@@ -6,7 +6,7 @@ class CustomSnackbars {
     return GetSnackBar(
       borderRadius: 15,
       snackPosition: SnackPosition.BOTTOM,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: kTextTabBarHeight),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: kTextTabBarHeight + 20),
       backgroundColor: Theme.of(Get.context!).colorScheme.error,
       messageText: Text(
         error ?? "",
@@ -20,7 +20,7 @@ class CustomSnackbars {
     return GetSnackBar(
       borderRadius: 15,
       snackPosition: SnackPosition.BOTTOM,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: kTextTabBarHeight),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: kTextTabBarHeight + 20),
       backgroundColor: Theme.of(Get.context!).primaryColor,
       messageText: Text(
         message ?? "",
