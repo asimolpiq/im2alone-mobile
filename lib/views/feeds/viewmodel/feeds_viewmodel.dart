@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 
 import '../../../core/helpers/request_helper.dart';
 import '../../../model/feeds/feeds_model.dart';
-import '../../../product/components/snackbar/custom_snacbars.dart';
 import '../../../service/feeds/feeds_service.dart';
 import '../feeds_view.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +26,6 @@ abstract class FeedsViewModel extends State<FeedsView> {
       isLoading.value = false;
     } else {
       isLoading.value = false;
-      Get.showSnackbar(
-        CustomSnackbars.errorSnack(error: response.error!),
-      );
     }
   }
 }

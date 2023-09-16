@@ -106,7 +106,7 @@ class _FeedsViewState extends FeedsViewModel {
                             );
                           })
                       : Center(
-                          child: Text("no_feeds".tr),
+                          child: Text("no_diary".tr),
                         )
                   : Center(
                       child: CircularProgressIndicator(

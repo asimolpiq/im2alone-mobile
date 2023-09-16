@@ -31,8 +31,12 @@ class _MyAccountState extends MyAccountViewModel {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Obx(() {
-              return _profileHeader(context, authController.currentUser.value.username,
-                  authController.currentUser.value.bio, authController.currentUser.value.pp, userStats.value);
+              return _profileHeader(
+                  context,
+                  authController.currentUser.value.username ?? "",
+                  authController.currentUser.value.bio ?? "",
+                  authController.currentUser.value.pp ?? "",
+                  userStats.value);
             }),
             ProfileButtton(
               icon: const Icon(
