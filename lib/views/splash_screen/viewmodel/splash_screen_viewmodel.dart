@@ -27,6 +27,16 @@ abstract class SplashViewmodel extends State<SplashScreen> with CachingManager {
     getUserIfTokenExists();
   }
 
+  langControl() async {
+    final lang = await getLocale();
+    if (lang == null) {
+      await saveLocale(Get.deviceLocale.toString());
+      Get.updateLocale(Get.deviceLocale ?? const Locale('en', 'US'));
+    } else {
+      Get.updateLocale(Locale(lang));
+    }
+  }
+
   getUserIfTokenExists() async {
     final token = await getToken().whenComplete(() => isLoaded.value = true);
     if (token != null) {

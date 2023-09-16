@@ -36,11 +36,8 @@ extension AppImagesExtension on AppImages {
       height: height,
       width: width,
       fit: fit,
-      color: color,
     );
   }
 }
 
-enum CacheManagerKey {
-  token,
-}
+enum CacheManagerKey { token, language }

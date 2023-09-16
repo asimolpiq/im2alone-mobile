@@ -52,4 +52,7 @@ const Map<String, String> englishTranslate = {
   'confirm_password': 'Confirm Password',
   'new_password': 'New Password',
   'password_not_match': 'Passwords do not match!',
+  'english': 'English',
+  'turkish': 'Turkish',
+  'cancel': 'Cancel',
 };

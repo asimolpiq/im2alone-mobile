@@ -6,6 +6,7 @@ import 'package:im2alone/product/mixins/get_user_stats_mixin.dart';
 
 import '../../../../model/user_utils/user_stats_model.dart';
 import '../../../../product/components/snackbar/custom_snacbars.dart';
+import '../../../../product/consts/radius/project_radius.dart';
 import '../my_account_view.dart';
 
 abstract class MyAccountViewModel extends State<MyAccount> with GetUserStats {
@@ -25,6 +26,21 @@ abstract class MyAccountViewModel extends State<MyAccount> with GetUserStats {
       userStats.value = response.userStats ?? UserStatsModel();
     } else {
       CustomSnackbars.errorSnack(error: response.error ?? "error".tr);
+    }
+  }
+
+  ButtonStyle? currentLang(String code) {
+    if (Get.locale!.languageCode == code) {
+      return TextButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: ProjectRadius.circular15(),
+          side: BorderSide(
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ),
+      );
+    } else {
+      return null;
     }
   }
 }

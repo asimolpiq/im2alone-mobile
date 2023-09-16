@@ -52,4 +52,7 @@ const Map<String, String> turkishTranslate = {
   'confirm_password': 'Şifre Tekrar',
   'new_password': 'Yeni Şifre',
   'password_not_match': 'Şifreler eşleşmiyor!',
+  'english': 'İngilizce',
+  'turkish': 'Türkçe',
+  'cancel': 'Çık',
 };
