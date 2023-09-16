@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:im2alone/core/helpers/caching_manager.dart';
 import 'package:im2alone/model/user_utils/user_stats_model.dart';
 import 'package:im2alone/product/consts/paddings/project_paddings.dart';
 import 'package:im2alone/product/consts/spacers/project_spacers.dart';
@@ -21,7 +20,7 @@ class MyAccount extends StatefulWidget {
   State<MyAccount> createState() => _MyAccountState();
 }
 
-class _MyAccountState extends MyAccountViewModel with CachingManager {
+class _MyAccountState extends MyAccountViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,64 +60,7 @@ class _MyAccountState extends MyAccountViewModel with CachingManager {
             ),
             ProfileButtton(
                 onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => SizedBox(
-                            child: AlertDialog(
-                              alignment: Alignment.center,
-                              contentPadding: const ProjectPaddings.horiztontal10(),
-                              title: Text(
-                                'change_lang'.tr,
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                                      color: Theme.of(context).colorScheme.primary,
-                                    ),
-                              ),
-                              content: SizedBox(
-                                height: 130,
-                                child: Column(
-                                  children: [
-                                    const ProjectSpacers.spacer15(),
-                                    TextButton(
-                                      style: currentLang("tr"),
-                                      onPressed: () {
-                                        saveLocale(const Locale('tr', 'TR').toString());
-                                        Get.updateLocale(const Locale('tr', 'TR'));
-                                        Get.back();
-                                      },
-                                      child: Text(
-                                        "turkish".tr,
-                                        style: Theme.of(context).textTheme.headlineLarge,
-                                      ),
-                                    ),
-                                    const ProjectSpacers.spacer15(),
-                                    TextButton(
-                                      style: currentLang("en"),
-                                      onPressed: () {
-                                        saveLocale(const Locale('en', 'US').toString());
-                                        Get.updateLocale(const Locale('en', 'US'));
-                                        Get.back();
-                                      },
-                                      child: Text("english".tr, style: Theme.of(context).textTheme.headlineLarge),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Get.back();
-                                  },
-                                  child: Text(
-                                    "cancel".tr,
-                                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                                          color: Theme.of(context).colorScheme.error,
-                                        ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ));
+                  showDialog(context: context, builder: (context) => changeLangDialog(context));
                 },
                 text: "change_lang".tr,
                 icon: const Icon(
