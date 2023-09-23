@@ -33,7 +33,7 @@ class _LoginViewState extends LoginViewmodel {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 AppImages.logo.getSvg(
-                  height: 200,
+                  height: 300,
                   width: 500,
                 ),
                 Form(

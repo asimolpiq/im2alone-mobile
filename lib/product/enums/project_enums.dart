@@ -36,6 +36,8 @@ extension AppImagesExtension on AppImages {
       height: height,
       width: width,
       fit: fit,
+      // ignore: deprecated_member_use
+      color: color,
     );
   }
 }

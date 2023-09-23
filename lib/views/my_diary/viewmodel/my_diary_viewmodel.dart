@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:im2alone/model/feeds/feeds_model.dart';
-import 'package:im2alone/product/components/snackbar/custom_snacbars.dart';
-
 import '../../../core/helpers/request_helper.dart';
 import '../../../service/feeds/feeds_service.dart';
 import '../my_diary_view.dart';
@@ -27,9 +25,6 @@ abstract class MyDiaryViewmodel extends State<MyDiaryView> {
       isLoading.value = false;
     } else {
       isLoading.value = false;
-      Get.showSnackbar(
-        CustomSnackbars.errorSnack(error: response.error!),
-      );
     }
   }
 }
