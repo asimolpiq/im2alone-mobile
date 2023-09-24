@@ -49,5 +49,7 @@
 	<true/>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>im2alone not using microphone but apple say its use microphone :D</string>
 </dict>
 </plist>

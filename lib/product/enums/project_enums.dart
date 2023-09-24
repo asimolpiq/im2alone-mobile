@@ -20,9 +20,7 @@ enum AuthTextFieldType {
   password,
 }
 
-enum AppImages {
-  logo,
-}
+enum AppImages { logo, emptyPP }
 
 extension AppImagesExtension on AppImages {
   SvgPicture getSvg({
@@ -33,6 +31,22 @@ extension AppImagesExtension on AppImages {
   }) {
     return SvgPicture.asset(
       "assets/$name.svg",
+      height: height,
+      width: width,
+      fit: fit,
+      // ignore: deprecated_member_use
+      color: color,
+    );
+  }
+
+  Image getPng({
+    double height = 100,
+    double width = 100,
+    BoxFit fit = BoxFit.cover,
+    Color color = AppColors.white,
+  }) {
+    return Image.asset(
+      "assets/$name.png",
       height: height,
       width: width,
       fit: fit,

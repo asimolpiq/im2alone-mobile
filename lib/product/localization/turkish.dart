@@ -55,4 +55,10 @@ const Map<String, String> turkishTranslate = {
   'english': 'İngilizce',
   'turkish': 'Türkçe',
   'cancel': 'Çık',
+  'add_friend': 'Arkadaş Ekle',
+  'delete_friend': 'Arkadaş Sil',
+  'friend_request_sent': 'Arkadaşlık isteği gönderildi!',
+  'friend_request_not_sent': 'Arkadaşlık isteği gönderilemedi!',
+  'friend_deleted': 'Arkadaş silindi!',
+  'friend_not_deleted': 'Arkadaş silinemedi!',
 };

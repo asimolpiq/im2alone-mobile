@@ -8,10 +8,14 @@ abstract class IUserService {
   final String searchPath = '/search.php';
   final String editProfilePath = '/edit-profile.php';
   final String changePasswordPath = '/change-password.php';
+  final String addFriendPath = '/add-friend.php';
+  final String deleteFriendPath = '/delete-friend.php';
   Future<UserStatsResponseModel> getStats(String id);
   Future<SearchResponseModel> search(String query);
   Future<bool> editProfile(String username, String fullname, String bio);
   Future<bool> changePassword(String newPassword);
+  Future<bool> addFriend(String friendID);
+  Future<bool> deleteFriend(String friendID);
 
   IUserService(this.dio);
 }
@@ -83,6 +87,44 @@ class UserService extends IUserService {
   Future<bool> changePassword(String newPassword) async {
     try {
       final response = await dio.post(changePasswordPath, data: {"new_password": newPassword});
+      if (response.statusCode == 200) {
+        final parsedData = response.data;
+        if (parsedData['status'] == "error") {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> addFriend(String friendID) async {
+    try {
+      final response = await dio.post(addFriendPath, data: {"friendID": friendID});
+      if (response.statusCode == 200) {
+        final parsedData = response.data;
+        if (parsedData['status'] == "error") {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> deleteFriend(String friendID) async {
+    try {
+      final response = await dio.post(deleteFriendPath, data: {"friendID": friendID});
       if (response.statusCode == 200) {
         final parsedData = response.data;
         if (parsedData['status'] == "error") {

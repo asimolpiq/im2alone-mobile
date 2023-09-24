@@ -14,10 +14,9 @@ Card _profileHeader(BuildContext context, String? username, String? bio, String?
                 flex: 3,
                 child: CircleAvatar(
                   radius: 40,
-                  backgroundImage: NetworkImage(
-                    Config['SITE_URL'] + pp ??
-                        "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png",
-                  ),
+                  backgroundImage: pp != null
+                      ? NetworkImage(Config['SITE_URL'] + pp) as ImageProvider<Object>?
+                      : const AssetImage('assets/empty_pp.png'),
                 ),
               ),
               Expanded(

@@ -55,4 +55,10 @@ const Map<String, String> englishTranslate = {
   'english': 'English',
   'turkish': 'Turkish',
   'cancel': 'Cancel',
+  'add_friend': 'Add Friend',
+  'delete_friend': 'Delete Friend',
+  'friend_request_sent': 'Friend request sent!',
+  'friend_request_not_sent': 'Friend request not sent!',
+  'friend_deleted': 'Friend deleted!',
+  'friend_not_deleted': 'Friend not deleted!',
 };

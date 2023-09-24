@@ -13,6 +13,7 @@ class User {
   String? status;
   String? online;
   String? token;
+  bool? isFriend;
 
   User({
     this.id,
@@ -29,6 +30,7 @@ class User {
     this.status,
     this.online,
     this.token,
+    this.isFriend,
   });
 
   Map<String, dynamic> toJson() {
@@ -47,6 +49,7 @@ class User {
       'status': status,
       'online': online,
       'token': token,
+      'isFriend': isFriend ?? false,
     };
   }
 
@@ -66,16 +69,17 @@ class User {
       status: json['status'] as String?,
       online: json['online'] as String?,
       token: json['token'] as String?,
+      isFriend: json['isFriend'] as bool?,
     );
   }
 
   @override
   String toString() =>
-      "LoginResponse(id: $id,username: $username,realname: $realname,password: $password,email: $email,gender: $gender,birthday: $birthday,bio: $bio,pp: $pp,interested: $interested,permission: $permission,status: $status,online: $online,token: $token)";
+      "LoginResponse(id: $id,username: $username,realname: $realname,password: $password,email: $email,gender: $gender,birthday: $birthday,bio: $bio,pp: $pp,interested: $interested,permission: $permission,status: $status,online: $online,token: $token, isFriend: $isFriend)";
 
   @override
   int get hashCode => Object.hash(id, username, realname, password, email, gender, birthday, bio, pp, interested,
-      permission, status, online, token);
+      permission, status, online, token, isFriend);
 
   @override
   bool operator ==(Object other) =>
@@ -95,5 +99,6 @@ class User {
           permission == other.permission &&
           status == other.status &&
           online == other.online &&
-          token == other.token;
+          token == other.token &&
+          isFriend == other.isFriend;
 }

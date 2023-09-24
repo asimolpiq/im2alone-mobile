@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../core/helpers/request_helper.dart';
 import '../../../model/auth/user_model.dart';
 import '../../../service/user/user_service.dart';
