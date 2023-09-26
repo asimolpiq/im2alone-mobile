@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:im2alone/model/user_utils/user_stats_model.dart';
 import 'package:im2alone/product/consts/paddings/project_paddings.dart';
 import 'package:im2alone/product/consts/spacers/project_spacers.dart';
+import 'package:im2alone/views/account/friend_requests/friend_request_view.dart';
 import 'package:im2alone/views/auth/login/login_view.dart';
 import 'package:im2alone/product/components/appbar/custom_appbar.dart';
 import '../../../product/components/buttons/profile_button.dart';
@@ -66,6 +67,10 @@ class _MyAccountState extends MyAccountViewModel {
                 icon: const Icon(
                   Icons.language,
                 )),
+            ProfileButtton(
+                onPressed: () => Get.to(const FriendRequestView()),
+                text: "friend_requests".tr,
+                icon: const Icon(Icons.people_alt_outlined)),
             ProfileButtton(
               onPressed: () {
                 Get.offAll(() => const LoginView());

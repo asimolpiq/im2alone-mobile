@@ -17,6 +17,8 @@ abstract class SearchProfileWidgetViewmodel extends State<SearchProfileWidget> {
   addUserFriend(String userID) async {
     final response = await userService.addFriend(userID);
     if (response) {
+      widget.user.isFriend = null;
+      setState(() {});
       Get.showSnackbar(CustomSnackbars.successSnack(message: 'friend_request_sent'.tr));
     } else {
       Get.showSnackbar(CustomSnackbars.errorSnack(error: 'friend_request_not_sent'.tr));

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:im2alone/views/main_view/viewmodel/main_view_model.dart';
+import 'package:im2alone/views/fragments/main_view/viewmodel/main_view_model.dart';
 import 'package:im2alone/product/consts/radius/project_radius.dart';
 import 'package:im2alone/product/enums/project_enums.dart';
 

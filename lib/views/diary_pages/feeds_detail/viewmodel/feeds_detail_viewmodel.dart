@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:im2alone/core/helpers/request_helper.dart';
 import 'package:im2alone/service/feeds/feeds_service.dart';
 
-import '../../../core/controller/auth_controller.dart';
+import '../../../../core/controller/auth_controller.dart';
 import '../feeds_detail_view.dart';
 
 abstract class FeedsDetailViewmodel extends State<FeedsDetailView> {

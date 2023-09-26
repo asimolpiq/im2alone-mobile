@@ -6,8 +6,8 @@ import 'package:im2alone/product/components/appbar/custom_appbar.dart';
 import 'package:im2alone/product/consts/paddings/project_paddings.dart';
 import 'package:im2alone/product/consts/radius/project_radius.dart';
 import 'package:im2alone/product/consts/spacers/project_spacers.dart';
-import 'package:im2alone/views/my_diary/viewmodel/my_diary_viewmodel.dart';
-import 'package:im2alone/views/write_diary/write_diary_view.dart';
+import 'package:im2alone/views/diary_pages/my_diary/viewmodel/my_diary_viewmodel.dart';
+import 'package:im2alone/views/diary_pages/write_diary/write_diary_view.dart';
 import 'package:native_webview/native_webview.dart';
 
 import '../feeds_detail/feeds_detail_view.dart';
@@ -83,7 +83,7 @@ class _MyDiaryViewState extends MyDiaryViewmodel {
                                     Offstage(offstage: isCompleted, child: const CircularProgressIndicator()),
                                     AnimatedContainer(
                                       duration: const Duration(milliseconds: 500),
-                                      height: isCompleted ? Get.size.height * 0.09 : 0,
+                                      height: isCompleted ? Get.size.height * 0.086 : 0,
                                       child: ClipRRect(
                                         borderRadius: ProjectRadius.circular15(),
                                         child: WebView(

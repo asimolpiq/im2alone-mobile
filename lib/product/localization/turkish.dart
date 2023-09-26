@@ -61,4 +61,9 @@ const Map<String, String> turkishTranslate = {
   'friend_request_not_sent': 'Arkadaşlık isteği gönderilemedi!',
   'friend_deleted': 'Arkadaş silindi!',
   'friend_not_deleted': 'Arkadaş silinemedi!',
+  'friend_request_sended': 'Arkadaşlık isteği gönderildi',
+  'friend_requests': 'Arkadaşlık İstekleri',
+  'no_friend_requests': 'Henüz arkadaşlık isteği yok',
+  'accept': 'Kabul Et',
+  'ignore': 'Reddet',
 };

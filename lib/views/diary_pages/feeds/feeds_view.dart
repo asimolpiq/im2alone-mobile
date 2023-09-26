@@ -1,13 +1,16 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
+import 'package:im2alone/product/enums/project_enums.dart';
 
 import 'package:native_webview/native_webview.dart';
 
-import '../../product/components/appbar/custom_appbar.dart';
-import '../../product/consts/paddings/project_paddings.dart';
-import '../../product/consts/radius/project_radius.dart';
-import '../../product/consts/spacers/project_spacers.dart';
+import '../../../product/components/appbar/custom_appbar.dart';
+import '../../../product/config/config.dart';
+import '../../../product/consts/paddings/project_paddings.dart';
+import '../../../product/consts/radius/project_radius.dart';
+import '../../../product/consts/spacers/project_spacers.dart';
 import '../feeds_detail/feeds_detail_view.dart';
 import 'viewmodel/feeds_viewmodel.dart';
 
@@ -48,6 +51,26 @@ class _FeedsViewState extends FeedsViewModel {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
+                                    Row(
+                                      children: [
+                                        feedsList[index].pp != null
+                                            ? Image.network(Config['SITE_URL'] + feedsList[index].pp)
+                                            : AppImages.empty_pp.getAvatar(radius: 23),
+                                        SizedBox(
+                                          width: Get.size.width * 0.02,
+                                        ),
+                                        AutoSizeText(feedsList[index].friendName ?? "No username",
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            maxFontSize: 20,
+                                            style: Theme.of(context).textTheme.headlineMedium),
+                                      ],
+                                    ),
+                                    const ProjectSpacers.spacer5(),
+                                    Divider(
+                                      color: Theme.of(context).colorScheme.surface,
+                                      thickness: .4,
+                                    ),
                                     HtmlWidget(
                                       feedsList[index].content ?? "",
                                       customStylesBuilder: (element) {
@@ -69,7 +92,7 @@ class _FeedsViewState extends FeedsViewModel {
                                     Offstage(offstage: isCompleted, child: const CircularProgressIndicator()),
                                     AnimatedContainer(
                                       duration: const Duration(milliseconds: 500),
-                                      height: isCompleted ? Get.size.height * 0.09 : 0,
+                                      height: isCompleted ? Get.size.height * 0.086 : 0,
                                       child: ClipRRect(
                                         borderRadius: ProjectRadius.circular15(),
                                         child: WebView(

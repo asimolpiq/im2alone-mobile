@@ -5,7 +5,7 @@ import 'package:im2alone/product/components/form/form_input_decoration.dart';
 import 'package:im2alone/product/consts/paddings/project_paddings.dart';
 import 'package:im2alone/product/consts/radius/project_radius.dart';
 import 'package:im2alone/product/consts/spacers/project_spacers.dart';
-import 'package:im2alone/views/write_diary/viewmodel/write_diary_viewmodel.dart';
+import 'package:im2alone/views/diary_pages/write_diary/viewmodel/write_diary_viewmodel.dart';
 
 class WriteDiaryView extends StatefulWidget {
   final Function? callback;

@@ -55,28 +55,39 @@ class _SearchProfileWidgetState extends SearchProfileWidgetViewmodel {
                         style: TextStyle(color: Theme.of(context).colorScheme.surface),
                       ),
                       const ProjectSpacers.spacer5(),
-                      if (widget.user.isFriend != null)
-                        !widget.user.isFriend!
-                            ? ElevatedButton(
-                                onPressed: () => addUserFriend(widget.user.id ?? ""),
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.all(0),
-                                ),
-                                child: Padding(
+                      widget.user.isFriend != null
+                          ? (!widget.user.isFriend!)
+                              ? ElevatedButton(
+                                  onPressed: () => addUserFriend(widget.user.id ?? ""),
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.all(0),
+                                  ),
+                                  child: Padding(
+                                    padding: const ProjectPaddings.horiztontal16(),
+                                    child: Text('add_friend'.tr),
+                                  ),
+                                )
+                              : ElevatedButton(
+                                  onPressed: () => deleteFriend(widget.user.id ?? ""),
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.all(0),
+                                  ),
+                                  child: Padding(
+                                    padding: const ProjectPaddings.horiztontal16(),
+                                    child: Text('delete_friend'.tr,
+                                        style: TextStyle(color: Theme.of(context).colorScheme.error)),
+                                  ))
+                          : ElevatedButton(
+                              onPressed: () => deleteFriend(widget.user.id ?? ""),
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.all(0),
+                              ),
+                              child: Padding(
                                   padding: const ProjectPaddings.horiztontal16(),
-                                  child: Text('add_friend'.tr),
-                                ),
-                              )
-                            : ElevatedButton(
-                                onPressed: () => deleteFriend(widget.user.id ?? ""),
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.all(0),
-                                ),
-                                child: Padding(
-                                  padding: const ProjectPaddings.horiztontal16(),
-                                  child: Text('delete_friend'.tr,
-                                      style: TextStyle(color: Theme.of(context).colorScheme.error)),
-                                ))
+                                  child: AutoSizeText(
+                                    'friend_request_sended'.tr,
+                                    maxLines: 1,
+                                  )))
                     ],
                   ),
                 ),

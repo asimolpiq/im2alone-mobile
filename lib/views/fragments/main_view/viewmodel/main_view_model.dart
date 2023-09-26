@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:im2alone/core/controller/auth_controller.dart';
 import 'package:im2alone/core/controller/fragment_controller.dart';
-import 'package:im2alone/views/feeds/feeds_view.dart';
+import 'package:im2alone/views/diary_pages/feeds/feeds_view.dart';
 import 'package:im2alone/views/fragments/auth_fragment/auth_fragment.dart';
 import 'package:im2alone/views/search/search_view.dart';
 
-import '../../my_diary/my_diary_view.dart';
+import '../../../diary_pages/my_diary/my_diary_view.dart';
 import '../main_view.dart';
 
 abstract class MainViewModel extends State<MainView> with SingleTickerProviderStateMixin {

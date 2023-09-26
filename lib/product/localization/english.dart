@@ -61,4 +61,9 @@ const Map<String, String> englishTranslate = {
   'friend_request_not_sent': 'Friend request not sent!',
   'friend_deleted': 'Friend deleted!',
   'friend_not_deleted': 'Friend not deleted!',
+  'friend_request_sended': 'Friend request sended',
+  'friend_requests': 'Friend Requests',
+  'no_friend_requests': 'No friend requests yet',
+  'accept': 'Accept',
+  'ignore': 'Ignore',
 };

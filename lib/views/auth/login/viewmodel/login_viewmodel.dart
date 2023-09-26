@@ -7,7 +7,7 @@ import 'package:im2alone/core/helpers/request_helper.dart';
 import 'package:im2alone/model/auth/login_request_model.dart';
 import 'package:im2alone/product/components/snackbar/custom_snacbars.dart';
 import 'package:im2alone/service/auth/auth_service.dart';
-import 'package:im2alone/views/main_view/main_view.dart';
+import 'package:im2alone/views/fragments/main_view/main_view.dart';
 
 import '../login_view.dart';
 

@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+
+import 'package:im2alone/model/user_utils/notification_response_model.dart';
 import 'package:im2alone/model/user_utils/search_response_model.dart';
 import 'package:im2alone/model/user_utils/user_stats_response_model.dart';
 
@@ -10,12 +12,14 @@ abstract class IUserService {
   final String changePasswordPath = '/change-password.php';
   final String addFriendPath = '/add-friend.php';
   final String deleteFriendPath = '/delete-friend.php';
+  final String notificationPath = '/get-notification.php';
   Future<UserStatsResponseModel> getStats(String id);
   Future<SearchResponseModel> search(String query);
   Future<bool> editProfile(String username, String fullname, String bio);
   Future<bool> changePassword(String newPassword);
   Future<bool> addFriend(String friendID);
   Future<bool> deleteFriend(String friendID);
+  Future<NotificationResponseModel> getNotifications();
 
   IUserService(this.dio);
 }
@@ -137,6 +141,25 @@ class UserService extends IUserService {
       }
     } catch (e) {
       return false;
+    }
+  }
+
+  @override
+  Future<NotificationResponseModel> getNotifications() async {
+    try {
+      final response = await dio.post(notificationPath);
+      if (response.statusCode == 200) {
+        final parsedData = response.data;
+        if (parsedData['status'] == "error") {
+          return NotificationResponseModel.withError(parsedData['data']);
+        } else {
+          return NotificationResponseModel.fromJson(parsedData);
+        }
+      } else {
+        return NotificationResponseModel.withError(response.data['data']);
+      }
+    } catch (e) {
+      return NotificationResponseModel.withError(e.toString());
     }
   }
 }

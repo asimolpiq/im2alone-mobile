@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:im2alone/views/auth/login/login_view.dart';
-import 'package:im2alone/views/main_view/main_view.dart';
+import 'package:im2alone/views/fragments/main_view/main_view.dart';
 
 import '../../../core/controller/auth_controller.dart';
 import '../../../core/controller/fragment_controller.dart';
@@ -39,6 +39,7 @@ abstract class SplashViewmodel extends State<SplashScreen> with CachingManager {
 
   getUserIfTokenExists() async {
     final token = await getToken().whenComplete(() => isLoaded.value = true);
+
     if (token != null) {
       final response = await authService.getUser();
       if (response.error == null && response.user != null) {

@@ -20,7 +20,8 @@ enum AuthTextFieldType {
   password,
 }
 
-enum AppImages { logo, emptyPP }
+// ignore: constant_identifier_names
+enum AppImages { logo, empty_pp }
 
 extension AppImagesExtension on AppImages {
   SvgPicture getSvg({
@@ -43,7 +44,6 @@ extension AppImagesExtension on AppImages {
     double height = 100,
     double width = 100,
     BoxFit fit = BoxFit.cover,
-    Color color = AppColors.white,
   }) {
     return Image.asset(
       "assets/$name.png",
@@ -51,7 +51,13 @@ extension AppImagesExtension on AppImages {
       width: width,
       fit: fit,
       // ignore: deprecated_member_use
-      color: color,
+    );
+  }
+
+  CircleAvatar getAvatar({double? radius}) {
+    return CircleAvatar(
+      radius: radius ?? 40,
+      backgroundImage: AssetImage("assets/$name.png"),
     );
   }
 }
