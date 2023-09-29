@@ -18,6 +18,7 @@ abstract class MainViewModel extends State<MainView> with SingleTickerProviderSt
   @override
   void initState() {
     super.initState();
+
     tabController = TabController(length: pages.length, vsync: this);
     tabController.addListener(() {
       currentIndex.value = tabController.index;

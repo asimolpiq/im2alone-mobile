@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import 'package:im2alone/views/fragments/main_view/viewmodel/main_view_model.dart';
 import 'package:im2alone/product/consts/radius/project_radius.dart';
-import 'package:im2alone/product/enums/project_enums.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});
@@ -30,10 +29,6 @@ class _MainViewState extends MainViewModel {
             elevation: 1,
             currentIndex: currentIndex.value,
             onTap: (index) {
-              if (index == 0) {
-                fragmentController.state.value = MainStates.feeds;
-              }
-
               tabController.animateTo(index); // TabBarView'ı güncellemek için seçilen indekse geçiş yapılır.
             },
             items: [

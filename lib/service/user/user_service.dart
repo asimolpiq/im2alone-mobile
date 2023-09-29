@@ -13,12 +13,16 @@ abstract class IUserService {
   final String addFriendPath = '/add-friend.php';
   final String deleteFriendPath = '/delete-friend.php';
   final String notificationPath = '/get-notification.php';
+  final String acceptFriendPath = '/accept-friend.php';
+  final String ignoreFriendPath = '/ignore-user.php';
   Future<UserStatsResponseModel> getStats(String id);
   Future<SearchResponseModel> search(String query);
   Future<bool> editProfile(String username, String fullname, String bio);
   Future<bool> changePassword(String newPassword);
   Future<bool> addFriend(String friendID);
   Future<bool> deleteFriend(String friendID);
+  Future<bool> acceptFriend(String friendID);
+  Future<bool> ignoreFriend(String friendID);
   Future<NotificationResponseModel> getNotifications();
 
   IUserService(this.dio);
@@ -160,6 +164,44 @@ class UserService extends IUserService {
       }
     } catch (e) {
       return NotificationResponseModel.withError(e.toString());
+    }
+  }
+
+  @override
+  Future<bool> acceptFriend(String friendID) async {
+    try {
+      final response = await dio.post(acceptFriendPath, data: {"friendID": friendID});
+      if (response.statusCode == 200) {
+        final parsedData = response.data;
+        if (parsedData['status'] == "error") {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> ignoreFriend(String friendID) async {
+    try {
+      final response = await dio.post(ignoreFriendPath, data: {"friendID": friendID});
+      if (response.statusCode == 200) {
+        final parsedData = response.data;
+        if (parsedData['status'] == "error") {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
     }
   }
 }

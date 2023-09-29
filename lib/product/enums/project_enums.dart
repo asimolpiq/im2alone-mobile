@@ -2,13 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:im2alone/product/theme/colors/app_colors.dart';
 
-enum MainStates {
-  feeds,
-  myDiary,
-  myProfile,
-  addDiary,
-}
-
 enum AuthStates {
   register,
   forgotPassword,

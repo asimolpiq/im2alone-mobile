@@ -28,14 +28,14 @@ class _FeedsViewState extends FeedsViewModel {
         appBar: CustomAppbar(
           title: 'all_feeds'.tr,
         ),
-        body: Padding(
-          padding: const ProjectPaddings.all8(),
-          child: RefreshIndicator(
-            backgroundColor: Theme.of(context).colorScheme.secondary,
-            color: Theme.of(context).colorScheme.primary,
-            onRefresh: () async {
-              await getMyDiary();
-            },
+        body: RefreshIndicator(
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+          color: Theme.of(context).colorScheme.primary,
+          onRefresh: () async {
+            await getMyDiary();
+          },
+          child: Padding(
+            padding: const ProjectPaddings.all8(),
             child: Obx(
               () => !isLoading.value
                   ? feedsList.isNotEmpty

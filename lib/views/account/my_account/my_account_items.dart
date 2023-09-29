@@ -48,23 +48,29 @@ Card _profileHeader(BuildContext context, String? username, String? bio, String?
             endIndent: Get.width * 0.05,
           ),
           const ProjectSpacers.spacer10(),
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text("Günlük"),
-              Text("Takipçi"),
-              Text("Takip"),
-            ],
-          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(userStats != null ? "${userStats.diaryCount ?? 0}" : "0"),
-              Text(userStats != null ? "${userStats.followerCount ?? 0}" : "0"),
-              Text(userStats != null ? "${userStats.followingCount ?? 0}" : "0"),
+              Column(
+                children: [
+                  Text("diarys".tr),
+                  Text(userStats != null ? "${userStats.diaryCount ?? 0}" : "0"),
+                ],
+              ),
+              Column(
+                children: [
+                  Text("followers".tr),
+                  Text(userStats != null ? "${userStats.followerCount ?? 0}" : "0"),
+                ],
+              ),
+              Column(
+                children: [
+                  Text("followings".tr),
+                  Text(userStats != null ? "${userStats.followingCount ?? 0}" : "0"),
+                ],
+              ),
             ],
-          )
+          ),
         ],
       ),
     ),

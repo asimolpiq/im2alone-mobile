@@ -18,4 +18,11 @@ class ProjectInputBorder extends OutlineInputBorder {
             width: 2,
           ),
         );
+  ProjectInputBorder.primaryBorder()
+      : super(
+          borderRadius: ProjectRadius.circular30(),
+          borderSide: const BorderSide(
+            color: AppColors.primary,
+          ),
+        );
 }

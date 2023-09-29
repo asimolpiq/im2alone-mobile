@@ -6,7 +6,7 @@ import '../../consts/paddings/project_paddings.dart';
 import '../../theme/project_theme.dart';
 
 class CustomInputDecoration extends InputDecoration {
-  CustomInputDecoration.textDecoration([String hintText = ""])
+  CustomInputDecoration.textDecoration([String hintText = "", Widget? prefixIcon])
       : super(
           fillColor: AppColors.secondary,
           filled: true,
@@ -14,9 +14,11 @@ class CustomInputDecoration extends InputDecoration {
           border: ProjectInputBorder.formBorder(),
           labelStyle: const TextStyle(color: AppColors.white),
           hintText: hintText,
+          prefix: prefixIcon,
           hintStyle: const TextStyle(color: AppColors.white),
           contentPadding: const ProjectPaddings.all16(),
           focusedBorder: ProjectInputBorder.formBorder(),
+          disabledBorder: ProjectInputBorder.formBorder(),
         );
   CustomInputDecoration.dropdownDecoration([String hintText = ""])
       : super(
@@ -56,5 +58,17 @@ class CustomInputDecoration extends InputDecoration {
           hintStyle: ProjectTheme.createTheme().textTheme.titleMedium?.copyWith(color: AppColors.white, fontSize: 22),
           contentPadding: const ProjectPaddings.all16(),
           focusedBorder: ProjectInputBorder.formBorder(),
+        );
+  CustomInputDecoration.registerDecoration([String hintText = "", Widget? prefixIcon])
+      : super(
+          fillColor: AppColors.secondary,
+          filled: true,
+          prefixIcon: prefixIcon,
+          enabledBorder: ProjectInputBorder.authBorder(),
+          border: ProjectInputBorder.authBorder(),
+          hintText: hintText,
+          hintStyle: ProjectTheme.createTheme().textTheme.titleMedium?.copyWith(color: AppColors.white, fontSize: 18),
+          contentPadding: const ProjectPaddings.all16(),
+          focusedBorder: ProjectInputBorder.primaryBorder(),
         );
 }

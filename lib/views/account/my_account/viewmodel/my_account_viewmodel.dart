@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:confetti/confetti.dart';
+import 'package:easy_localization/easy_localization.dart' hide StringTranslateExtension;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:im2alone/core/controller/auth_controller.dart';
@@ -16,11 +20,20 @@ abstract class MyAccountViewModel extends State<MyAccount> with GetUserStats, Ca
   final AuthController authController = Get.find(tag: "authmanager");
   final FragmentController fragmentController = Get.find(tag: "fragmentmanager");
   Rx<UserStatsModel?> userStats = UserStatsModel().obs;
+  late ConfettiController controllerCenter;
 
   @override
   void initState() {
     super.initState();
+    controllerCenter = ConfettiController();
+    checkBirthday();
     getMyStats();
+  }
+
+  @override
+  void dispose() {
+    controllerCenter.dispose();
+    super.dispose();
   }
 
   getMyStats() async {
@@ -30,6 +43,39 @@ abstract class MyAccountViewModel extends State<MyAccount> with GetUserStats, Ca
     } else {
       CustomSnackbars.errorSnack(error: response.error ?? "error".tr);
     }
+  }
+
+  checkBirthday() {
+    final userBirthday = DateFormat("dd/MM").parse(authController.currentUser.value.birthday ?? "01/01/2000");
+    String today = DateFormat("dd/MM").format(DateTime.now());
+    final now = DateFormat("dd/MM").parse(today);
+    if (userBirthday == now) {
+      controllerCenter.play();
+      Future.delayed(const Duration(seconds: 4), () => controllerCenter.stop());
+    }
+  }
+
+  Path drawStar(Size size) {
+    // Method to convert degree to radians
+    double degToRad(double deg) => deg * (pi / 360.0);
+
+    const numberOfPoints = 5;
+    final halfWidth = size.width / 1.5;
+    final externalRadius = halfWidth;
+    final internalRadius = halfWidth / 2.5;
+    final degreesPerStep = degToRad(360 / numberOfPoints);
+    final halfDegreesPerStep = degreesPerStep / 2;
+    final path = Path();
+    final fullAngle = degToRad(360);
+    path.moveTo(size.width, halfWidth);
+
+    for (double step = 0; step < fullAngle; step += degreesPerStep) {
+      path.lineTo(halfWidth + externalRadius * cos(step), halfWidth + externalRadius * sin(step));
+      path.lineTo(halfWidth + internalRadius * cos(step + halfDegreesPerStep),
+          halfWidth + internalRadius * sin(step + halfDegreesPerStep));
+    }
+    path.close();
+    return path;
   }
 
   ButtonStyle? currentLang(String code) {

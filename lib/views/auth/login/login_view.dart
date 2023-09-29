@@ -8,6 +8,7 @@ import 'package:im2alone/product/consts/paddings/project_paddings.dart';
 import 'package:im2alone/product/consts/spacers/project_spacers.dart';
 import 'package:im2alone/product/enums/project_enums.dart';
 import 'package:im2alone/product/theme/colors/app_colors.dart';
+import 'package:im2alone/views/auth/register/register_view.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -55,7 +56,7 @@ class _LoginViewState extends LoginViewmodel {
                         indent: Get.size.width / 16,
                       ),
                       const ProjectSpacers.spacer5(),
-                      _authButton("register".tr),
+                      _registerButton("register".tr),
                     ],
                   ),
                 )
@@ -78,6 +79,22 @@ class _LoginViewState extends LoginViewmodel {
               password: passwordController.text.trim(),
             ));
           }
+        },
+        child: Text(
+          text,
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.surface),
+        ),
+      ),
+    );
+  }
+
+  Container _registerButton(String text) {
+    return Container(
+      color: AppColors.transparent,
+      width: Get.size.width,
+      child: ElevatedButton(
+        onPressed: () {
+          Get.to(const RegisterView());
         },
         child: Text(
           text,

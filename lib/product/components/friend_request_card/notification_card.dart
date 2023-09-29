@@ -6,6 +6,7 @@ import 'package:im2alone/product/consts/spacers/project_spacers.dart';
 
 import '../../config/config.dart';
 import '../../consts/paddings/project_paddings.dart';
+import 'viewmodel/notification_card_viewmodel.dart';
 
 class NotificationCard extends StatefulWidget {
   final NotificationModel notification;
@@ -15,7 +16,7 @@ class NotificationCard extends StatefulWidget {
   State<NotificationCard> createState() => _NotificationCardState();
 }
 
-class _NotificationCardState extends State<NotificationCard> {
+class _NotificationCardState extends FriendRequestCardViewmodel {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -75,7 +76,7 @@ class _NotificationCardState extends State<NotificationCard> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => acceptFriend(),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(0),
                   ),
@@ -88,7 +89,7 @@ class _NotificationCardState extends State<NotificationCard> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => ignoreFriend(),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(0),
                   ),
