@@ -2,6 +2,13 @@ import 'package:easy_localization/easy_localization.dart' hide StringTranslateEx
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:im2alone/core/controller/auth_controller.dart';
+import 'package:im2alone/core/helpers/caching_manager.dart';
+import 'package:im2alone/core/helpers/request_helper.dart';
+import 'package:im2alone/model/auth/register_model.dart';
+import 'package:im2alone/model/auth/user_model.dart';
+import 'package:im2alone/service/auth/auth_service.dart';
+import 'package:im2alone/views/fragments/main_view/main_view.dart';
 
 import '../../../../product/components/form/form_input_decoration.dart';
 import '../../../../product/components/snackbar/custom_snacbars.dart';
@@ -13,7 +20,9 @@ import '../../../../product/theme/colors/app_colors.dart';
 import '../../../../product/theme/project_theme.dart';
 import '../register_view.dart';
 
-abstract class RegisterViewmodel extends State<RegisterView> {
+abstract class RegisterViewmodel extends State<RegisterView> with CachingManager {
+  late AuthService authService;
+  final AuthController authController = Get.find(tag: 'authmanager');
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController genderController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
@@ -37,9 +46,30 @@ abstract class RegisterViewmodel extends State<RegisterView> {
       child: Text('unisex'.tr),
     ),
   ];
+
   @override
   void initState() {
     super.initState();
+    authService = AuthService(RequestHelper().dio);
+  }
+
+  register(RegisterModel user) async {
+    final response = await authService.register(user);
+    if (response.error == null) {
+      await saveToken(response.token ?? "").then((_) async {
+        final user = await authService.getUser();
+        if (user.error == null) {
+          Get.showSnackbar(CustomSnackbars.successSnack(message: 'register_success'.tr));
+          authController.currentUser.value = user.user ?? User();
+          authController.isLogin.value = true;
+          Get.off(const MainView());
+        } else {
+          Get.showSnackbar(CustomSnackbars.errorSnack(error: user.error!));
+        }
+      });
+    } else {
+      Get.showSnackbar(CustomSnackbars.errorSnack(error: response.error!));
+    }
   }
 
   DropdownButtonFormField<String> genderDropDown() {
@@ -60,7 +90,7 @@ abstract class RegisterViewmodel extends State<RegisterView> {
       },
       validator: (value) {
         if (value == null) {
-          return 'privacy_error'.tr;
+          return 'gender_error'.tr;
         }
         return null;
       },
@@ -71,6 +101,12 @@ abstract class RegisterViewmodel extends State<RegisterView> {
     return TextFormField(
       controller: birthdayController,
       enabled: true,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'birthday_error'.tr;
+        }
+        return null;
+      },
       style: Theme.of(context).textTheme.headlineMedium,
       onTap: () => showCupertinoModalPopup(
           context: context,
@@ -127,7 +163,17 @@ abstract class RegisterViewmodel extends State<RegisterView> {
 
   TextFormField emailTextField() {
     return TextFormField(
+      keyboardType: TextInputType.emailAddress,
       controller: emailController,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'email_error'.tr;
+        } else if (!value.contains("@")) {
+          return 'email_not_valid'.tr;
+        } else {
+          return null;
+        }
+      },
       style: Theme.of(context).textTheme.headlineMedium,
       decoration: CustomInputDecoration.registerDecoration(
           "email".tr,
@@ -141,6 +187,13 @@ abstract class RegisterViewmodel extends State<RegisterView> {
   TextFormField realnameTextField() {
     return TextFormField(
       controller: realNameController,
+      keyboardType: TextInputType.name,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'real_name_error'.tr;
+        }
+        return null;
+      },
       style: Theme.of(context).textTheme.headlineMedium,
       decoration: CustomInputDecoration.registerDecoration(
           "real_name".tr,
@@ -153,7 +206,16 @@ abstract class RegisterViewmodel extends State<RegisterView> {
 
   TextFormField passwordTextField() {
     return TextFormField(
+        keyboardType: TextInputType.visiblePassword,
         controller: passwordController,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'password_error'.tr;
+          } else if (value.length < 6) {
+            return 'password_short'.tr;
+          }
+          return null;
+        },
         style: Theme.of(context).textTheme.headlineMedium,
         obscureText: !showPassword,
         decoration: InputDecoration(
@@ -185,7 +247,16 @@ abstract class RegisterViewmodel extends State<RegisterView> {
 
   TextFormField usernameTextField() {
     return TextFormField(
+      keyboardType: TextInputType.name,
       controller: usernameController,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'username_error'.tr;
+        } else if (value.length < 4) {
+          return 'username_short'.tr;
+        }
+        return null;
+      },
       style: Theme.of(context).textTheme.headlineMedium,
       decoration: CustomInputDecoration.registerDecoration(
           "username".tr,
@@ -214,7 +285,14 @@ abstract class RegisterViewmodel extends State<RegisterView> {
         onPressed: () {
           if (formKey.currentState!.validate()) {
             formKey.currentState!.save();
-            Get.showSnackbar(CustomSnackbars.successSnack(message: 'register_success'.tr));
+            register(RegisterModel(
+              username: usernameController.text,
+              realname: realNameController.text,
+              email: emailController.text,
+              birthday: birthdayController.text,
+              gender: genderController.text,
+              password: passwordController.text,
+            ));
           }
         },
         child: Text(

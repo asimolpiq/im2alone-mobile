@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:im2alone/model/auth/login_request_model.dart';
 import 'package:im2alone/views/auth/login/viewmodel/login_viewmodel.dart';
-import 'package:im2alone/product/components/appbar/custom_appbar.dart';
 import 'package:im2alone/product/components/auth/login_textfield.dart';
 import 'package:im2alone/product/consts/paddings/project_paddings.dart';
 import 'package:im2alone/product/consts/spacers/project_spacers.dart';
@@ -22,9 +21,6 @@ class _LoginViewState extends LoginViewmodel {
   Widget build(BuildContext context) {
     return Scaffold(
         extendBody: true,
-        appBar: CustomAppbar(
-          title: 'login'.tr,
-        ),
         body: Padding(
           padding: const ProjectPaddings.all16(),
           child: SingleChildScrollView(
@@ -33,6 +29,7 @@ class _LoginViewState extends LoginViewmodel {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                const ProjectSpacers.spacerAppBar(),
                 AppImages.logo.getSvg(
                   height: 300,
                   width: 500,
@@ -51,9 +48,9 @@ class _LoginViewState extends LoginViewmodel {
                       const ProjectSpacers.spacer5(),
                       Divider(
                         color: Theme.of(context).colorScheme.surface,
-                        thickness: .1,
-                        endIndent: Get.size.width / 16,
-                        indent: Get.size.width / 16,
+                        thickness: .2,
+                        endIndent: Get.size.width * .4,
+                        indent: Get.size.width * .4,
                       ),
                       const ProjectSpacers.spacer5(),
                       _registerButton("register".tr),

@@ -9,4 +9,5 @@ class ProjectSpacers extends SizedBox {
   const ProjectSpacers.spacer30({super.key}) : super(height: 30);
   const ProjectSpacers.spacer50({super.key}) : super(height: 50);
   const ProjectSpacers.spacer100({super.key}) : super(height: 100);
+  const ProjectSpacers.spacerAppBar({super.key}) : super(height: kToolbarHeight);
 }
