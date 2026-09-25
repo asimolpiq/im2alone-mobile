@@ -7,7 +7,8 @@ class LoginResponseModel {
   LoginResponseModel({this.user, this.error});
 
   LoginResponseModel.fromJson(Map<String, dynamic> json) {
-    user = User.fromJson(json['data']);
+    final data = json['data'];
+    user = User.fromJson(data is Map<String, dynamic> ? data : null);
     error = null;
   }
 

@@ -14,6 +14,7 @@ abstract class ProjectTheme {
         elevatedButtonTheme: _ElevatedButtonTheme(),
         scaffoldBackgroundColor: AppColors.background,
         cardTheme:  _CardTheme(),
+        dialogTheme: const _DialogTheme(),
         canvasColor: AppColors.white,
         textTheme: const _TextTheme(),
         iconTheme: const _IconTheme(),

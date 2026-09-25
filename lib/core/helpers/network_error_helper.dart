@@ -1,7 +1,16 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 class NetworkErrorHelper {
   static String keyFor(Object error) {
+    // Tum catch bloklari buraya dusuyor; debug'da gercek hatayi goster.
+    if (kDebugMode) {
+      debugPrint('[NetworkError] $error');
+      if (error is DioException) {
+        debugPrint('[NetworkError] path=${error.requestOptions.path} '
+            'status=${error.response?.statusCode} body=${error.response?.data}');
+      }
+    }
     if (error is DioException) {
       switch (error.type) {
         case DioExceptionType.connectionTimeout:

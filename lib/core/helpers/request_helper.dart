@@ -35,11 +35,9 @@ class RequestHelper with CachingManager {
         return handler.next(options);
       },
       onResponse: (Response response, ResponseInterceptorHandler handler) async {
-        if (response.data != null && response.data.runtimeType == String) {
-          var data = response.data;
-          if (data["data"].toString() == "unauthorized") {
-            removeToken();
-          }
+        final data = response.data;
+        if (data is Map && data["data"].toString() == "unauthorized") {
+          removeToken();
         }
         return handler.next(response);
       },

@@ -7,7 +7,13 @@ class FeedsResponseModel {
   FeedsResponseModel({this.feeds, this.error});
 
   FeedsResponseModel.fromJson(Map<String, dynamic> json) {
-    feeds = (json['data'] as List).map((e) => FeedsModel.fromJson(e)).toList();
+    final data = json['data'];
+    feeds = data is List
+        ? data
+            .whereType<Map<String, dynamic>>()
+            .map((e) => FeedsModel.fromJson(e))
+            .toList()
+        : <FeedsModel>[];
     error = null;
   }
 

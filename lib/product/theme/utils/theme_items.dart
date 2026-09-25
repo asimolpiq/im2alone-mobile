@@ -43,6 +43,29 @@ class _CardTheme extends CardThemeData {
         );
 }
 
+class _DialogTheme extends DialogThemeData {
+  const _DialogTheme()
+      : super(
+          backgroundColor: AppColors.secondary,
+          surfaceTintColor: AppColors.secondary,
+          elevation: 8,
+          titleTextStyle: const TextStyle(
+            fontFamily: "Comfortaa",
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: AppColors.white,
+          ),
+          contentTextStyle: const TextStyle(
+            fontFamily: "Comfortaa",
+            fontSize: 15,
+            color: AppColors.white,
+          ),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          ),
+        );
+}
+
 class _TextTheme extends TextTheme {
   const _TextTheme()
       : super(

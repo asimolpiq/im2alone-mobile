@@ -38,18 +38,19 @@ class FeedsModel {
     };
   }
 
-  factory FeedsModel.fromJson(Map<String, dynamic> json) {
+  factory FeedsModel.fromJson(Map<String, dynamic>? json) {
+    if (json == null) return FeedsModel();
     return FeedsModel(
-      id: json['id'] as String?,
-      content: json['content'] as String?,
-      date: json['date'] as String?,
-      link: json['link'] as String?,
-      friendName: json['friend_name'] as String?,
-      userId: json['user_id'] as String?,
-      pp: json['pp'] as String?,
-      likes: json['likes'] as int?,
-      views: json['views'] as int?,
-      liked: json['liked'] as bool?,
+      id: _asString(json['id']),
+      content: _asString(json['content']),
+      date: _asString(json['date']),
+      link: _asString(json['link']),
+      friendName: _asString(json['friend_name']),
+      userId: _asString(json['user_id']),
+      pp: _asString(json['pp']),
+      likes: _asInt(json['likes']),
+      views: _asInt(json['views']),
+      liked: _asBool(json['liked']),
     );
   }
 
@@ -76,4 +77,26 @@ class FeedsModel {
           likes == other.likes &&
           views == other.views &&
           liked == other.liked;
+
+  /// PHP sayilari string olarak donebiliyor; cast yerine coerce et.
+  static String? _asString(dynamic value) => value?.toString();
+
+  static int? _asInt(dynamic value) {
+    if (value == null) return null;
+    if (value is int) return value;
+    if (value is num) return value.toInt();
+    return int.tryParse(value.toString());
+  }
+
+  /// 0/1, "0"/"1", "true"/"false" ve bool degerlerini tolere eder.
+  static bool? _asBool(dynamic value) {
+    if (value == null) return null;
+    if (value is bool) return value;
+    if (value is num) return value != 0;
+    final text = value.toString().toLowerCase();
+    if (text == 'true' || text == '1') return true;
+    if (text == 'false' || text == '0') return false;
+    return null;
+  }
+
 }
