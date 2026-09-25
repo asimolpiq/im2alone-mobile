@@ -103,6 +103,7 @@ const Map<String, String> englishTranslate = {
   'delete_account_confirm_title': 'Delete your account?',
   'delete_account_confirm_body':
       'Your account, diaries, friendships and all your data will be permanently deleted. This cannot be undone.',
+  'session_expired': 'Your session has expired, please log in again.',
   'account_deleted': 'Your account has been deleted.',
   'account_delete_failed': 'Could not delete account, please try again.',
   'account_delete_wrong_password': 'Wrong password, account was not deleted.',

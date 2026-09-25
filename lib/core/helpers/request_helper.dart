@@ -1,5 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:get/get.dart' hide Response;
+import 'package:im2alone/core/controller/auth_controller.dart';
 import 'package:im2alone/core/helpers/caching_manager.dart';
+import 'package:im2alone/product/components/snackbar/custom_snacbars.dart';
+import 'package:im2alone/views/auth/login/login_view.dart';
 
 import '../../product/config/config.dart';
 
@@ -15,6 +19,20 @@ class RequestHelper with CachingManager {
 
   RequestHelper._internal() {
     _requestHelper = RequestHelper._createInstance();
+  }
+
+  void _handleExpiredSession() {
+    if (!Get.isRegistered<AuthController>(tag: "authmanager")) {
+      return;
+    }
+    final AuthController authController = Get.find(tag: "authmanager");
+    if (!authController.isLogin.value) {
+      return;
+    }
+    authController.logout();
+    Get.offAll(() => const LoginView());
+    Get.showSnackbar(
+        CustomSnackbars.errorSnack(error: 'session_expired'.tr));
   }
 
   Dio get dio {
@@ -38,6 +56,11 @@ class RequestHelper with CachingManager {
         final data = response.data;
         if (data is Map && data["data"].toString() == "unauthorized") {
           removeToken();
+        }
+        if (data is Map &&
+            (data['error'] == 'Authorization error!' ||
+                data['data'] == 'Authorization error!')) {
+          _handleExpiredSession();
         }
         return handler.next(response);
       },

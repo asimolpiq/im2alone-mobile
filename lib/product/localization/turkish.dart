@@ -102,6 +102,7 @@ const Map<String, String> turkishTranslate = {
   'delete_account_confirm_title': 'Hesabın silinsin mi?',
   'delete_account_confirm_body':
       'Hesabın, günlüklerin, arkadaşlıkların ve tüm verilerin kalıcı olarak silinecek. Bu işlem geri alınamaz.',
+  'session_expired': 'Oturumun sona erdi, lütfen tekrar giriş yap.',
   'account_deleted': 'Hesabın silindi.',
   'account_delete_failed': 'Hesap silinemedi, lütfen tekrar dene.',
   'account_delete_wrong_password': 'Şifre yanlış, hesap silinmedi.',
