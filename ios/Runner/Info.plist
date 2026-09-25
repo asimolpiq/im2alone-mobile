@@ -29,7 +29,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>im2alone not using microphone but apple say its use microphone :D</string>
+	<string>im2alone does not record audio. This permission is only requested if a page opened in the in-app web view asks for microphone access.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>im2alone needs access to your photo library so you can choose a photo to use as your profile picture.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
