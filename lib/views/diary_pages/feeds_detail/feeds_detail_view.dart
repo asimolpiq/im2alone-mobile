@@ -4,9 +4,11 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:im2alone/model/feeds/feeds_model.dart';
 import 'package:im2alone/product/consts/paddings/project_paddings.dart';
-import 'package:native_webview/native_webview.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../product/components/appbar/custom_appbar.dart';
+import '../../../product/components/feed_actions/feed_actions_bar.dart';
+import '../../../product/components/moderation/report_block_menu.dart';
 import '../../../product/config/config.dart';
 import '../../../product/consts/radius/project_radius.dart';
 import '../../../product/consts/spacers/project_spacers.dart';
@@ -34,6 +36,19 @@ class _FeedsDetailViewState extends FeedsDetailViewmodel {
           },
           icon: const Icon(Icons.arrow_back_ios),
         ),
+        actions: widget.feed.userId != authController.currentUser.value.id &&
+                widget.feed.userId != null
+            ? [
+                ReportBlockMenu(
+                  userId: widget.feed.userId!,
+                  feedId: widget.feed.id,
+                  onBlocked: () {
+                    widget.callback?.call();
+                    Navigator.pop(context);
+                  },
+                ),
+              ]
+            : null,
       ),
       body: SingleChildScrollView(
         physics: const ClampingScrollPhysics(),
@@ -53,16 +68,19 @@ class _FeedsDetailViewState extends FeedsDetailViewmodel {
                         Row(
                           children: [
                             widget.feed.pp != null
-                                ? Image.network(Config['SITE_URL'] + widget.feed.pp)
+                                ? Image.network(
+                                    Config['SITE_URL'] + widget.feed.pp)
                                 : AppImages.empty_pp.getAvatar(radius: 23),
                             SizedBox(
                               width: Get.size.width * 0.02,
                             ),
-                            AutoSizeText(widget.feed.friendName ?? "No username",
+                            AutoSizeText(
+                                widget.feed.friendName ?? "No username",
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 maxFontSize: 20,
-                                style: Theme.of(context).textTheme.headlineMedium),
+                                style:
+                                    Theme.of(context).textTheme.headlineMedium),
                           ],
                         ),
                         const ProjectSpacers.spacer5(),
@@ -81,28 +99,30 @@ class _FeedsDetailViewState extends FeedsDetailViewmodel {
                     ),
                   ),
                   const ProjectSpacers.spacer10(),
-                  Offstage(offstage: isCompleted, child: const CircularProgressIndicator()),
+                  Offstage(
+                      offstage: isCompleted,
+                      child: const CircularProgressIndicator()),
                   AnimatedContainer(
                     duration: const Duration(milliseconds: 500),
                     height: isCompleted ? Get.size.height * 0.086 : 0,
                     child: ClipRRect(
                       borderRadius: ProjectRadius.circular15(),
-                      child: WebView(
-                        initialUrl: widget.feed.link ?? "",
-                        onProgressChanged: (_, p1) {
-                          if (p1 == 100) {
-                            setState(() {
-                              isCompleted = true;
-                            });
-                          }
-                        },
-                      ),
+                      child: WebViewWidget(controller: webViewController),
                     ),
                   ),
                   const ProjectSpacers.spacer20(),
                   Text(
                     "${'publish_date'.tr} : ${widget.feed.date ?? ""}",
                     style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  const ProjectSpacers.spacer10(),
+                  FeedActionsBar(
+                    likes: likes,
+                    views: views,
+                    liked: liked,
+                    showLikeButton:
+                        widget.feed.userId != authController.currentUser.value.id,
+                    onLikeTap: () => toggleLike(),
                   ),
                   if (authController.currentUser.value.id == widget.feed.userId)
                     Column(

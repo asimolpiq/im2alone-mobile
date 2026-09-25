@@ -1,3 +1,4 @@
+import '../../core/helpers/network_error_helper.dart';
 import '../../core/helpers/request_helper.dart';
 import '../../model/user_utils/user_stats_response_model.dart';
 import '../../service/user/user_service.dart';
@@ -13,7 +14,7 @@ mixin GetUserStats {
         return UserStatsResponseModel.withError(response.error!);
       }
     } catch (e) {
-      return UserStatsResponseModel.withError(e.toString());
+      return UserStatsResponseModel.withError(NetworkErrorHelper.keyFor(e));
     }
   }
 }

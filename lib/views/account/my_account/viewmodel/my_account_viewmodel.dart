@@ -1,7 +1,8 @@
 import 'dart:math';
 
 import 'package:confetti/confetti.dart';
-import 'package:easy_localization/easy_localization.dart' hide StringTranslateExtension;
+import 'package:easy_localization/easy_localization.dart'
+    hide StringTranslateExtension;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:im2alone/core/controller/auth_controller.dart';
@@ -16,9 +17,11 @@ import '../../../../product/consts/radius/project_radius.dart';
 import '../../../../product/consts/spacers/project_spacers.dart';
 import '../my_account_view.dart';
 
-abstract class MyAccountViewModel extends State<MyAccount> with GetUserStats, CachingManager {
+abstract class MyAccountViewModel extends State<MyAccount>
+    with GetUserStats, CachingManager {
   final AuthController authController = Get.find(tag: "authmanager");
-  final FragmentController fragmentController = Get.find(tag: "fragmentmanager");
+  final FragmentController fragmentController =
+      Get.find(tag: "fragmentmanager");
   Rx<UserStatsModel?> userStats = UserStatsModel().obs;
   late ConfettiController controllerCenter;
 
@@ -37,16 +40,19 @@ abstract class MyAccountViewModel extends State<MyAccount> with GetUserStats, Ca
   }
 
   getMyStats() async {
-    final response = await getUserStats(authController.currentUser.value.id ?? "0");
+    final response =
+        await getUserStats(authController.currentUser.value.id ?? "0");
     if (response.error == null) {
       userStats.value = response.userStats ?? UserStatsModel();
     } else {
-      CustomSnackbars.errorSnack(error: response.error ?? "error".tr);
+      Get.showSnackbar(
+          CustomSnackbars.errorSnack(error: (response.error ?? "error").tr));
     }
   }
 
   checkBirthday() {
-    final userBirthday = DateFormat("dd/MM").parse(authController.currentUser.value.birthday ?? "01/01/2000");
+    final userBirthday = DateFormat("dd/MM")
+        .parse(authController.currentUser.value.birthday ?? "01/01/2000");
     String today = DateFormat("dd/MM").format(DateTime.now());
     final now = DateFormat("dd/MM").parse(today);
     if (userBirthday == now) {
@@ -70,7 +76,8 @@ abstract class MyAccountViewModel extends State<MyAccount> with GetUserStats, Ca
     path.moveTo(size.width, halfWidth);
 
     for (double step = 0; step < fullAngle; step += degreesPerStep) {
-      path.lineTo(halfWidth + externalRadius * cos(step), halfWidth + externalRadius * sin(step));
+      path.lineTo(halfWidth + externalRadius * cos(step),
+          halfWidth + externalRadius * sin(step));
       path.lineTo(halfWidth + internalRadius * cos(step + halfDegreesPerStep),
           halfWidth + internalRadius * sin(step + halfDegreesPerStep));
     }
@@ -130,7 +137,8 @@ abstract class MyAccountViewModel extends State<MyAccount> with GetUserStats, Ca
                   Get.updateLocale(const Locale('en', 'US'));
                   Get.back();
                 },
-                child: Text("english".tr, style: Theme.of(context).textTheme.headlineLarge),
+                child: Text("english".tr,
+                    style: Theme.of(context).textTheme.headlineLarge),
               ),
             ],
           ),

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:im2alone/core/helpers/caching_manager.dart';
+import 'package:im2alone/core/helpers/network_error_helper.dart';
 import 'package:im2alone/model/auth/login_request_model.dart';
 import 'package:im2alone/model/auth/login_response_model.dart';
 import 'package:im2alone/model/auth/register_model.dart';
@@ -32,12 +33,11 @@ class AuthService extends IAuthService with CachingManager {
           return LoginResponseModel.withError(parsedData['error']);
         }
       } else {
-        LoginResponseModel.withError(response.data['error']);
+        return LoginResponseModel.withError('network_server_error');
       }
     } catch (e) {
-      return LoginResponseModel.withError(e.toString());
+      return LoginResponseModel.withError(NetworkErrorHelper.keyFor(e));
     }
-    return LoginResponseModel.withError('-');
   }
 
   @override
@@ -56,12 +56,11 @@ class AuthService extends IAuthService with CachingManager {
           return LoginResponseModel.withError(parsedData['error']);
         }
       } else {
-        LoginResponseModel.withError(response.data['error']);
+        return LoginResponseModel.withError('network_server_error');
       }
     } catch (e) {
-      return LoginResponseModel.withError(e.toString());
+      return LoginResponseModel.withError(NetworkErrorHelper.keyFor(e));
     }
-    return LoginResponseModel.withError('-');
   }
 
   @override
@@ -81,11 +80,10 @@ class AuthService extends IAuthService with CachingManager {
           return RegisterResponseModel.withError(parsedData['data']);
         }
       } else {
-        LoginResponseModel.withError(response.data['data']);
+        return RegisterResponseModel.withError('network_server_error');
       }
     } catch (e) {
-      return RegisterResponseModel.withError(e.toString());
+      return RegisterResponseModel.withError(NetworkErrorHelper.keyFor(e));
     }
-    return RegisterResponseModel.withError('-');
   }
 }

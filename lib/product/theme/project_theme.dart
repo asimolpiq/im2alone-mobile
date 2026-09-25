@@ -13,7 +13,7 @@ abstract class ProjectTheme {
         appBarTheme: const _AppBarTheme(),
         elevatedButtonTheme: _ElevatedButtonTheme(),
         scaffoldBackgroundColor: AppColors.background,
-        cardTheme: const _CardTheme(),
+        cardTheme:  _CardTheme(),
         canvasColor: AppColors.white,
         textTheme: const _TextTheme(),
         iconTheme: const _IconTheme(),

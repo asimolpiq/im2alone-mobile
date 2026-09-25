@@ -1,6 +1,13 @@
 part of './my_account_view.dart';
 
-Card _profileHeader(BuildContext context, String? username, String? bio, String? pp, UserStatsModel? userStats) {
+Future<FriendListResponseModel> _fetchFollowers() =>
+    UserService(RequestHelper().dio).getFollowers();
+
+Future<FriendListResponseModel> _fetchFollowing() =>
+    UserService(RequestHelper().dio).getFollowing();
+
+Card _profileHeader(BuildContext context, String? username, String? bio,
+    String? pp, UserStatsModel? userStats) {
   return Card(
     elevation: 0,
     color: Theme.of(context).colorScheme.secondary,
@@ -15,7 +22,8 @@ Card _profileHeader(BuildContext context, String? username, String? bio, String?
                 child: CircleAvatar(
                   radius: 40,
                   backgroundImage: pp != null
-                      ? NetworkImage(Config['SITE_URL'] + pp) as ImageProvider<Object>?
+                      ? NetworkImage(Config['SITE_URL'] + pp)
+                          as ImageProvider<Object>?
                       : const AssetImage('assets/empty_pp.png'),
                 ),
               ),
@@ -26,14 +34,17 @@ Card _profileHeader(BuildContext context, String? username, String? bio, String?
                   children: [
                     Text(
                       username ?? "No username",
-                      style: TextStyle(fontSize: 20, color: Theme.of(context).colorScheme.surface),
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Theme.of(context).colorScheme.surface),
                     ),
                     AutoSizeText(
                       bio ?? "-",
                       maxFontSize: 14,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
-                      style: TextStyle(color: Theme.of(context).colorScheme.surface),
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.surface),
                     ),
                   ],
                 ),
@@ -54,20 +65,39 @@ Card _profileHeader(BuildContext context, String? username, String? bio, String?
               Column(
                 children: [
                   Text("diarys".tr),
-                  Text(userStats != null ? "${userStats.diaryCount ?? 0}" : "0"),
+                  Text(
+                      userStats != null ? "${userStats.diaryCount ?? 0}" : "0"),
                 ],
               ),
-              Column(
-                children: [
-                  Text("followers".tr),
-                  Text(userStats != null ? "${userStats.followerCount ?? 0}" : "0"),
-                ],
+              InkWell(
+                onTap: () => Get.to(() => FriendsListView(
+                      title: 'followers'.tr,
+                      emptyMessageKey: 'no_followers',
+                      fetcher: _fetchFollowers,
+                    )),
+                child: Column(
+                  children: [
+                    Text("followers".tr),
+                    Text(userStats != null
+                        ? "${userStats.followerCount ?? 0}"
+                        : "0"),
+                  ],
+                ),
               ),
-              Column(
-                children: [
-                  Text("followings".tr),
-                  Text(userStats != null ? "${userStats.followingCount ?? 0}" : "0"),
-                ],
+              InkWell(
+                onTap: () => Get.to(() => FriendsListView(
+                      title: 'followings'.tr,
+                      emptyMessageKey: 'no_following',
+                      fetcher: _fetchFollowing,
+                    )),
+                child: Column(
+                  children: [
+                    Text("followings".tr),
+                    Text(userStats != null
+                        ? "${userStats.followingCount ?? 0}"
+                        : "0"),
+                  ],
+                ),
               ),
             ],
           ),

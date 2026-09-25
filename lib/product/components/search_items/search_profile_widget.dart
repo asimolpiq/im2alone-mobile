@@ -7,11 +7,13 @@ import 'package:im2alone/product/consts/spacers/project_spacers.dart';
 import '../../../model/auth/user_model.dart';
 import '../../config/config.dart';
 import '../../consts/paddings/project_paddings.dart';
+import '../moderation/report_block_menu.dart';
 import 'viewmodel/search_profile_widget_viewmodel.dart';
 
 class SearchProfileWidget extends StatefulWidget {
   final User user;
-  const SearchProfileWidget({super.key, required this.user});
+  final VoidCallback? onBlocked;
+  const SearchProfileWidget({super.key, required this.user, this.onBlocked});
 
   @override
   State<SearchProfileWidget> createState() => _SearchProfileWidgetState();
@@ -27,6 +29,13 @@ class _SearchProfileWidgetState extends SearchProfileWidgetViewmodel {
         padding: const ProjectPaddings.all8(),
         child: Column(
           children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: ReportBlockMenu(
+                userId: widget.user.id ?? "",
+                onBlocked: widget.onBlocked,
+              ),
+            ),
             Row(
               children: [
                 Expanded(

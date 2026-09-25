@@ -27,7 +27,7 @@ class _BottomNavBarThemeData extends BottomNavigationBarThemeData {
         );
 }
 
-class _CardTheme extends CardTheme {
+class _CardTheme extends CardThemeData {
   const _CardTheme()
       : super(
           elevation: 4,
@@ -88,15 +88,15 @@ class _ElevatedButtonTheme extends ElevatedButtonThemeData {
   _ElevatedButtonTheme()
       : super(
           style: ButtonStyle(
-            shape: MaterialStateProperty.all(
+            shape: WidgetStateProperty.all(
               RoundedRectangleBorder(
                 borderRadius: ProjectRadius.circular30(),
               ),
             ),
-            backgroundColor: MaterialStateProperty.all(
+            backgroundColor: WidgetStateProperty.all(
               AppColors.secondary,
             ),
-            padding: MaterialStateProperty.all(
+            padding: WidgetStateProperty.all(
               const EdgeInsets.symmetric(vertical: 15),
             ),
           ),

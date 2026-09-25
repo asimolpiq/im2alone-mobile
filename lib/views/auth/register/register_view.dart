@@ -40,6 +40,8 @@ class _RegisterViewState extends RegisterViewmodel {
                   birthdayTextField(),
                   const ProjectSpacers.spacer15(),
                   genderDropDown(),
+                  const ProjectSpacers.spacer15(),
+                  eulaCheckbox(),
                   const ProjectSpacers.spacer20(),
                   registerButton("register".tr),
                 ],

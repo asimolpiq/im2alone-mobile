@@ -32,6 +32,19 @@ class CustomInputDecoration extends InputDecoration {
           focusedBorder: ProjectInputBorder.formBorder(),
         );
 
+  CustomInputDecoration.plainDecoration([String hintText = ""])
+      : super(
+          fillColor: AppColors.secondary,
+          filled: true,
+          isDense: true,
+          enabledBorder: ProjectInputBorder.plainBorder(),
+          border: ProjectInputBorder.plainBorder(),
+          hintText: hintText,
+          hintStyle: const TextStyle(color: AppColors.white, fontSize: 16),
+          contentPadding: const ProjectPaddings.all12(),
+          focusedBorder: ProjectInputBorder.plainBorder(),
+        );
+
   CustomInputDecoration.searchDecoration([String hintText = "", Widget? prefixIcon])
       : super(
           fillColor: AppColors.secondary,

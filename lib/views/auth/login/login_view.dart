@@ -39,10 +39,12 @@ class _LoginViewState extends LoginViewmodel {
                   child: Column(
                     children: [
                       LoginTextField(
-                          authTextFieldType: AuthTextFieldType.username, textEditController: usernameController),
+                          authTextFieldType: AuthTextFieldType.username,
+                          textEditController: usernameController),
                       const ProjectSpacers.spacer20(),
                       LoginTextField(
-                          authTextFieldType: AuthTextFieldType.password, textEditController: passwordController),
+                          authTextFieldType: AuthTextFieldType.password,
+                          textEditController: passwordController),
                       const ProjectSpacers.spacer50(),
                       _authButton("login".tr),
                       const ProjectSpacers.spacer5(),
@@ -79,7 +81,10 @@ class _LoginViewState extends LoginViewmodel {
         },
         child: Text(
           text,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.surface),
+          style: Theme.of(context)
+              .textTheme
+              .titleMedium
+              ?.copyWith(color: Theme.of(context).colorScheme.surface),
         ),
       ),
     );
@@ -95,7 +100,10 @@ class _LoginViewState extends LoginViewmodel {
         },
         child: Text(
           text,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.surface),
+          style: Theme.of(context)
+              .textTheme
+              .titleMedium
+              ?.copyWith(color: Theme.of(context).colorScheme.surface),
         ),
       ),
     );

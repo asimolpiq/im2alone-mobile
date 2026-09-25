@@ -5,6 +5,7 @@ class RegisterModel {
   String? gender;
   String? password;
   String? birthday;
+  bool? eulaAccepted;
 
   RegisterModel({
     this.username,
@@ -13,6 +14,7 @@ class RegisterModel {
     this.gender,
     this.password,
     this.birthday,
+    this.eulaAccepted,
   });
 
   RegisterModel copyWith({
@@ -22,6 +24,7 @@ class RegisterModel {
     String? gender,
     String? password,
     String? birthday,
+    bool? eulaAccepted,
   }) {
     return RegisterModel(
       username: username ?? this.username,
@@ -30,6 +33,7 @@ class RegisterModel {
       gender: gender ?? this.gender,
       password: password ?? this.password,
       birthday: birthday ?? this.birthday,
+      eulaAccepted: eulaAccepted ?? this.eulaAccepted,
     );
   }
 
@@ -41,15 +45,16 @@ class RegisterModel {
       'gender': gender,
       'password': password,
       'birthday': birthday,
+      'eulaAccepted': eulaAccepted,
     };
   }
 
   @override
   String toString() =>
-      "RegisterModel(username: $username,realname: $realname,email: $email,gender: $gender,password: $password,birthday: $birthday)";
+      "RegisterModel(username: $username,realname: $realname,email: $email,gender: $gender,password: $password,birthday: $birthday,eulaAccepted: $eulaAccepted)";
 
   @override
-  int get hashCode => Object.hash(username, realname, email, gender, password, birthday);
+  int get hashCode => Object.hash(username, realname, email, gender, password, birthday, eulaAccepted);
 
   @override
   bool operator ==(Object other) =>
@@ -61,5 +66,6 @@ class RegisterModel {
           email == other.email &&
           gender == other.gender &&
           password == other.password &&
-          birthday == other.birthday;
+          birthday == other.birthday &&
+          eulaAccepted == other.eulaAccepted;
 }

@@ -6,13 +6,17 @@ import 'package:im2alone/views/fragments/main_view/main_view.dart';
 import '../../../core/controller/auth_controller.dart';
 import '../../../core/controller/fragment_controller.dart';
 import '../../../core/helpers/caching_manager.dart';
+import '../../../core/helpers/diary_sync_manager.dart';
 import '../../../core/helpers/request_helper.dart';
 import '../../../service/auth/auth_service.dart';
 import '../splash_screen.dart';
 
-abstract class SplashViewmodel extends State<SplashScreen> with CachingManager {
-  final AuthController authController = Get.put(AuthController(), tag: "authmanager");
-  FragmentController fragmentController = Get.put(FragmentController(), tag: "fragmentmanager");
+abstract class SplashViewmodel extends State<SplashScreen>
+    with CachingManager, DiarySyncManager {
+  final AuthController authController =
+      Get.put(AuthController(), tag: "authmanager");
+  FragmentController fragmentController =
+      Get.put(FragmentController(), tag: "fragmentmanager");
 
   RxBool isLoaded = false.obs;
 
@@ -46,8 +50,21 @@ abstract class SplashViewmodel extends State<SplashScreen> with CachingManager {
         authController.currentUser.value = response.user!;
         authController.isLogin.value = true;
         await saveToken(response.user?.token!);
+        await saveUser(response.user!);
+        cacheAllDiariesForOfflineUse();
         await Future.delayed(const Duration(seconds: 4));
         Get.offAll(() => const MainView());
+      } else if (!await isOnline()) {
+        final cachedUser = await getCachedUser();
+        if (cachedUser != null) {
+          authController.currentUser.value = cachedUser;
+          authController.isLogin.value = true;
+          await Future.delayed(const Duration(seconds: 4));
+          Get.offAll(() => const MainView());
+        } else {
+          await Future.delayed(const Duration(seconds: 4));
+          Get.offAll(() => const LoginView());
+        }
       } else {
         await Future.delayed(const Duration(seconds: 4));
         Get.offAll(() => const LoginView());

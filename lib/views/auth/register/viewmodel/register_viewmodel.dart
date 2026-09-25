@@ -1,4 +1,5 @@
-import 'package:easy_localization/easy_localization.dart' hide StringTranslateExtension;
+import 'package:easy_localization/easy_localization.dart'
+    hide StringTranslateExtension;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,15 +13,18 @@ import 'package:im2alone/views/fragments/main_view/main_view.dart';
 
 import '../../../../product/components/form/form_input_decoration.dart';
 import '../../../../product/components/snackbar/custom_snacbars.dart';
+import '../../../../product/config/config.dart';
 import '../../../../product/consts/input_borders/project_input_borders.dart';
 import '../../../../product/consts/paddings/project_paddings.dart';
 import '../../../../product/consts/radius/project_radius.dart';
 import '../../../../product/enums/project_enums.dart';
 import '../../../../product/theme/colors/app_colors.dart';
 import '../../../../product/theme/project_theme.dart';
+import '../../../web_page/web_page_view.dart';
 import '../register_view.dart';
 
-abstract class RegisterViewmodel extends State<RegisterView> with CachingManager {
+abstract class RegisterViewmodel extends State<RegisterView>
+    with CachingManager {
   late AuthService authService;
   final AuthController authController = Get.find(tag: 'authmanager');
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -31,6 +35,8 @@ abstract class RegisterViewmodel extends State<RegisterView> with CachingManager
   TextEditingController passwordController = TextEditingController();
   TextEditingController birthdayController = TextEditingController();
   bool showPassword = false;
+  bool eulaAccepted = false;
+  bool eulaError = false;
 
   List<DropdownMenuItem<String>> privacyList = [
     DropdownMenuItem(
@@ -59,16 +65,17 @@ abstract class RegisterViewmodel extends State<RegisterView> with CachingManager
       await saveToken(response.token ?? "").then((_) async {
         final user = await authService.getUser();
         if (user.error == null) {
-          Get.showSnackbar(CustomSnackbars.successSnack(message: 'register_success'.tr));
+          Get.showSnackbar(
+              CustomSnackbars.successSnack(message: 'register_success'.tr));
           authController.currentUser.value = user.user ?? User();
           authController.isLogin.value = true;
           Get.off(const MainView());
         } else {
-          Get.showSnackbar(CustomSnackbars.errorSnack(error: user.error!));
+          Get.showSnackbar(CustomSnackbars.errorSnack(error: user.error!.tr));
         }
       });
     } else {
-      Get.showSnackbar(CustomSnackbars.errorSnack(error: response.error!));
+      Get.showSnackbar(CustomSnackbars.errorSnack(error: response.error!.tr));
     }
   }
 
@@ -138,12 +145,15 @@ abstract class RegisterViewmodel extends State<RegisterView> with CachingManager
                           flex: 8,
                           child: CupertinoDatePicker(
                             mode: CupertinoDatePickerMode.date,
-                            backgroundColor: Theme.of(context).colorScheme.surface,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.surface,
                             initialDateTime: birthdayController.text.isEmpty
                                 ? DateTime.now()
-                                : DateFormat("dd/MM/yyyy").parse(birthdayController.text),
+                                : DateFormat("dd/MM/yyyy")
+                                    .parse(birthdayController.text),
                             onDateTimeChanged: (DateTime value) {
-                              birthdayController.text = DateFormat("dd/MM/yyyy").format(value);
+                              birthdayController.text =
+                                  DateFormat("dd/MM/yyyy").format(value);
                             },
                           ),
                         ),
@@ -232,14 +242,19 @@ abstract class RegisterViewmodel extends State<RegisterView> with CachingManager
               });
             },
             icon: Icon(
-              showPassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+              showPassword
+                  ? Icons.visibility_off_outlined
+                  : Icons.visibility_outlined,
               color: Theme.of(context).colorScheme.surface,
             ),
           ),
           enabledBorder: ProjectInputBorder.authBorder(),
           border: ProjectInputBorder.authBorder(),
           hintText: "password".tr,
-          hintStyle: ProjectTheme.createTheme().textTheme.titleMedium?.copyWith(color: AppColors.white, fontSize: 18),
+          hintStyle: ProjectTheme.createTheme()
+              .textTheme
+              .titleMedium
+              ?.copyWith(color: AppColors.white, fontSize: 18),
           contentPadding: const ProjectPaddings.all16(),
           focusedBorder: ProjectInputBorder.primaryBorder(),
         ));
@@ -267,6 +282,60 @@ abstract class RegisterViewmodel extends State<RegisterView> with CachingManager
     );
   }
 
+  Widget eulaCheckbox() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Checkbox(
+              value: eulaAccepted,
+              onChanged: (value) {
+                setState(() {
+                  eulaAccepted = value ?? false;
+                  if (eulaAccepted) {
+                    eulaError = false;
+                  }
+                });
+              },
+            ),
+            Expanded(
+              child: GestureDetector(
+                onTap: () => Get.to(() => WebPageView(
+                      title: 'terms_of_service'.tr,
+                      url: "${Config['SITE_URL']}terms.php",
+                    )),
+                child: Text.rich(
+                  TextSpan(
+                    text: 'i_agree_to_terms'.tr,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    children: [
+                      TextSpan(
+                        text: 'terms_of_service'.tr,
+                        style: const TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Colors.blue),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        if (eulaError)
+          Padding(
+            padding: const EdgeInsets.only(left: 12),
+            child: Text(
+              'terms_required'.tr,
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.error, fontSize: 12),
+            ),
+          ),
+      ],
+    );
+  }
+
   SizedBox appLogo() {
     return SizedBox(
       height: Get.size.height / 6,
@@ -283,7 +352,10 @@ abstract class RegisterViewmodel extends State<RegisterView> with CachingManager
       width: Get.size.width,
       child: ElevatedButton(
         onPressed: () {
-          if (formKey.currentState!.validate()) {
+          if (!eulaAccepted) {
+            setState(() => eulaError = true);
+          }
+          if (formKey.currentState!.validate() && eulaAccepted) {
             formKey.currentState!.save();
             register(RegisterModel(
               username: usernameController.text,
@@ -292,12 +364,16 @@ abstract class RegisterViewmodel extends State<RegisterView> with CachingManager
               birthday: birthdayController.text,
               gender: genderController.text,
               password: passwordController.text,
+              eulaAccepted: eulaAccepted,
             ));
           }
         },
         child: Text(
           text,
-          style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Theme.of(context).colorScheme.surface),
+          style: Theme.of(context)
+              .textTheme
+              .headlineMedium
+              ?.copyWith(color: Theme.of(context).colorScheme.surface),
         ),
       ),
     );

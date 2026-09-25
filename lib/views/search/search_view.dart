@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:im2alone/product/components/appbar/custom_appbar.dart';
+import 'package:im2alone/product/components/notification_bell/notification_bell_button.dart';
 import 'package:im2alone/product/components/form/form_input_decoration.dart';
 import 'package:im2alone/product/components/search_items/search_profile_widget.dart';
 import 'package:im2alone/product/consts/paddings/project_paddings.dart';
@@ -20,6 +21,7 @@ class _SearchViewState extends SearchViewmodel {
     return Scaffold(
       appBar: CustomAppbar(
         title: 'search'.tr,
+        actions: const [NotificationBellButton()],
       ),
       extendBody: true,
       body: SingleChildScrollView(
@@ -52,7 +54,10 @@ class _SearchViewState extends SearchViewmodel {
                               itemCount: users.length,
                               shrinkWrap: true,
                               itemBuilder: (BuildContext context, int index) {
-                                return SearchProfileWidget(user: users[index]);
+                                return SearchProfileWidget(
+                                  user: users[index],
+                                  onBlocked: () => users.removeAt(index),
+                                );
                               },
                             )
                           : Center(

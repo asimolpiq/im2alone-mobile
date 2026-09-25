@@ -9,4 +9,5 @@ class AppColors {
   static const white = Colors.white;
   static const transparent = Colors.transparent;
   static const background = Color(0xFF373F48);
+  static const like = Color(0xFFE0566E);
 }

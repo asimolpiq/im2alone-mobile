@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../model/auth/user_model.dart';
 import '../../product/enums/project_enums.dart';
 
 mixin CachingManager {
@@ -38,5 +41,41 @@ mixin CachingManager {
   Future<void> removeLocale() async {
     final box = await initBox();
     box.delete(CacheManagerKey.language.name);
+  }
+
+  Future<void> saveUser(User user) async {
+    final box = await initBox();
+    box.put(CacheManagerKey.cachedUser.name, jsonEncode(user.toJson()));
+  }
+
+  Future<User?> getCachedUser() async {
+    final box = await initBox();
+    final raw = box.get(CacheManagerKey.cachedUser.name);
+    if (raw == null) {
+      return null;
+    }
+    return User.fromJson(Map<String, dynamic>.from(jsonDecode(raw)));
+  }
+
+  Future<void> removeCachedUser() async {
+    final box = await initBox();
+    box.delete(CacheManagerKey.cachedUser.name);
+  }
+
+  //[SEEN NOTIFICATIONS]
+  Future<List<String>> getSeenNotificationIds() async {
+    final box = await initBox();
+    final raw = box.get(CacheManagerKey.seenNotificationIds.name);
+    if (raw == null) {
+      return [];
+    }
+    return List<String>.from(raw);
+  }
+
+  Future<void> markNotificationsSeen(List<String> ids) async {
+    final box = await initBox();
+    final current = await getSeenNotificationIds();
+    final merged = {...current, ...ids}.toList();
+    box.put(CacheManagerKey.seenNotificationIds.name, merged);
   }
 }

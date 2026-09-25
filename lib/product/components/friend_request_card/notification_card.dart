@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:im2alone/model/user_utils/notification_model.dart';
 import 'package:im2alone/product/consts/spacers/project_spacers.dart';
 
+import '../../../views/account/notification_profile/notification_profile_view.dart';
 import '../../config/config.dart';
 import '../../consts/paddings/project_paddings.dart';
 import 'viewmodel/notification_card_viewmodel.dart';
@@ -26,43 +27,48 @@ class _NotificationCardState extends FriendRequestCardViewmodel {
         padding: const ProjectPaddings.all16(),
         child: Column(
           children: [
-            Row(
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: CircleAvatar(
-                    radius: 35,
-                    backgroundImage: widget.notification.pp != null
-                        ? NetworkImage(Config['SITE_URL'] + widget.notification.pp) as ImageProvider<Object>?
-                        : const AssetImage(
-                            'assets/empty_pp.png',
-                          ),
+            InkWell(
+              onTap: () => Get.to(
+                () => NotificationProfileView(notification: widget.notification),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: CircleAvatar(
+                      radius: 35,
+                      backgroundImage: widget.notification.pp != null
+                          ? NetworkImage(Config['SITE_URL'] + widget.notification.pp) as ImageProvider<Object>?
+                          : const AssetImage(
+                              'assets/empty_pp.png',
+                            ),
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Expanded(
-                  flex: 7,
-                  child: Column(
-                    children: [
-                      AutoSizeText(
-                        widget.notification.username ?? "No username",
-                        maxFontSize: 30,
-                        minFontSize: 25,
-                        style: TextStyle(color: Theme.of(context).colorScheme.surface),
-                      ),
-                      AutoSizeText(
-                        (widget.notification.bio ?? "-") != "" ? widget.notification.bio! : "No bio",
-                        maxFontSize: 14,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                        style: TextStyle(color: Theme.of(context).colorScheme.surface),
-                      ),
-                    ],
+                  const SizedBox(
+                    width: 20,
                   ),
-                ),
-              ],
+                  Expanded(
+                    flex: 7,
+                    child: Column(
+                      children: [
+                        AutoSizeText(
+                          widget.notification.username ?? "No username",
+                          maxFontSize: 30,
+                          minFontSize: 25,
+                          style: TextStyle(color: Theme.of(context).colorScheme.surface),
+                        ),
+                        AutoSizeText(
+                          (widget.notification.bio ?? "-") != "" ? widget.notification.bio! : "No bio",
+                          maxFontSize: 14,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                          style: TextStyle(color: Theme.of(context).colorScheme.surface),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
             const ProjectSpacers.spacer5(),
             Divider(
@@ -73,31 +79,48 @@ class _NotificationCardState extends FriendRequestCardViewmodel {
             ),
             const ProjectSpacers.spacer5(),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(
-                  onPressed: () => acceptFriend(),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(0),
-                  ),
-                  child: Padding(
-                    padding: const ProjectPaddings.horiztontal16(),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => acceptFriend(),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                    ),
                     child: Text(
                       'accept'.tr,
-                      style: TextStyle(color: Colors.greenAccent.shade400, fontSize: 24),
+                      style: TextStyle(color: Colors.greenAccent.shade400, fontSize: 16),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () => ignoreFriend(),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(0),
-                  ),
-                  child: Padding(
-                    padding: const ProjectPaddings.horiztontal16(),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => ignoreFriend(),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                    ),
                     child: Text(
                       'ignore'.tr,
-                      style: TextStyle(color: Theme.of(context).colorScheme.error, fontSize: 24),
+                      style: TextStyle(color: Theme.of(context).colorScheme.error, fontSize: 16),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => showDialog(
+                      context: context,
+                      builder: (context) => blockConfirmDialog(context),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                    ),
+                    child: Text(
+                      'block'.tr,
+                      style: TextStyle(color: Theme.of(context).colorScheme.error, fontSize: 16),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ),

@@ -55,4 +55,12 @@ extension AppImagesExtension on AppImages {
   }
 }
 
-enum CacheManagerKey { token, language }
+enum CacheManagerKey {
+  token,
+  language,
+  pendingDiaries,
+  myDiaryCache,
+  allFeedsCache,
+  cachedUser,
+  seenNotificationIds
+}
