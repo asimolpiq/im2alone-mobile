@@ -25,6 +25,7 @@ abstract class IUserService {
   final String getFollowersPath = '/get-followers.php';
   final String getFollowingPath = '/get-following.php';
   final String uploadAvatarPath = '/upload-avatar.php';
+  final String deleteAccountPath = '/delete-account.php';
   Future<UserStatsResponseModel> getStats(String id);
   Future<SearchResponseModel> search(String query);
   Future<bool> editProfile(String username, String fullname, String bio,
@@ -46,6 +47,7 @@ abstract class IUserService {
   Future<FriendListResponseModel> getFollowers();
   Future<FriendListResponseModel> getFollowing();
   Future<String?> uploadAvatar(String filePath);
+  Future<String?> deleteAccount(String password);
 
   IUserService(this.dio);
 }
@@ -342,6 +344,26 @@ class UserService extends IUserService {
       return FriendListResponseModel.withError('network_server_error');
     } catch (e) {
       return FriendListResponseModel.withError(NetworkErrorHelper.keyFor(e));
+    }
+  }
+
+  @override
+  Future<String?> deleteAccount(String password) async {
+    try {
+      final response =
+          await dio.post(deleteAccountPath, data: {"password": password});
+      if (response.statusCode == 200) {
+        final parsedData = response.data;
+        if (parsedData['status'] != "error") {
+          return null;
+        }
+        if (parsedData['data'].toString().contains("Şifre")) {
+          return 'account_delete_wrong_password';
+        }
+      }
+      return 'account_delete_failed';
+    } catch (e) {
+      return 'account_delete_failed';
     }
   }
 

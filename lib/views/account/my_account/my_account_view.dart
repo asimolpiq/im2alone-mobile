@@ -105,6 +105,15 @@ class _MyAccountState extends MyAccountViewModel {
                     text: "support".tr,
                     icon: const Icon(Icons.help_outline)),
                 ProfileButtton(
+                  onPressed: () => showDialog(
+                      context: context,
+                      builder: (context) => deleteAccountDialog(context)),
+                  text: "delete_account".tr,
+                  icon: Icon(Icons.delete_forever,
+                      color: Theme.of(context).colorScheme.error),
+                  textColor: Theme.of(context).colorScheme.error,
+                ),
+                ProfileButtton(
                   onPressed: () {
                     Get.offAll(() => const LoginView());
                     authController.logout();

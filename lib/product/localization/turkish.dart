@@ -98,6 +98,13 @@ const Map<String, String> turkishTranslate = {
   'report': 'Şikayet Et',
   'report_user': 'Kullanıcıyı Şikayet Et',
   'block': 'Engelle',
+  'delete_account': 'Hesabı Sil',
+  'delete_account_confirm_title': 'Hesabın silinsin mi?',
+  'delete_account_confirm_body':
+      'Hesabın, günlüklerin, arkadaşlıkların ve tüm verilerin kalıcı olarak silinecek. Bu işlem geri alınamaz.',
+  'account_deleted': 'Hesabın silindi.',
+  'account_delete_failed': 'Hesap silinemedi, lütfen tekrar dene.',
+  'account_delete_wrong_password': 'Şifre yanlış, hesap silinmedi.',
   'unblock': 'Engeli Kaldır',
   'block_user_confirm_title': 'Bu kullanıcıyı engellemek istiyor musunuz?',
   'block_user_confirm_body':

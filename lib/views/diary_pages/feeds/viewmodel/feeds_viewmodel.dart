@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../../../core/controller/auth_controller.dart';
 import '../../../../core/helpers/diary_sync_manager.dart';
 import '../../../../core/helpers/request_helper.dart';
 import '../../../../model/feeds/feeds_model.dart';
@@ -10,6 +11,7 @@ import '../feeds_view.dart';
 import 'package:flutter/material.dart';
 
 abstract class FeedsViewModel extends State<FeedsView> with DiarySyncManager {
+  final AuthController authController = Get.find(tag: "authmanager");
   late FeedsService feedsService;
   RxList<FeedsModel> feedsList = <FeedsModel>[].obs;
   RxBool isLoading = false.obs;

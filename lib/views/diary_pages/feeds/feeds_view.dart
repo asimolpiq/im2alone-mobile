@@ -8,6 +8,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../product/components/appbar/custom_appbar.dart';
 import '../../../product/components/feed_actions/feed_actions_bar.dart';
+import '../../../product/components/moderation/report_block_menu.dart';
 import '../../../product/components/notification_bell/notification_bell_button.dart';
 import '../../../product/config/config.dart';
 import '../../../product/consts/paddings/project_paddings.dart';
@@ -64,15 +65,26 @@ class _FeedsViewState extends FeedsViewModel {
                                         SizedBox(
                                           width: Get.size.width * 0.02,
                                         ),
-                                        AutoSizeText(
-                                            feedsList[index].friendName ??
-                                                "No username",
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            maxFontSize: 20,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headlineMedium),
+                                        Expanded(
+                                          child: AutoSizeText(
+                                              feedsList[index].friendName ??
+                                                  "No username",
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              maxFontSize: 20,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headlineMedium),
+                                        ),
+                                        if (feedsList[index].userId !=
+                                                authController
+                                                    .currentUser.value.id &&
+                                            feedsList[index].userId != null)
+                                          ReportBlockMenu(
+                                            userId: feedsList[index].userId!,
+                                            feedId: feedsList[index].id,
+                                            onBlocked: () => getMyDiary(),
+                                          ),
                                       ],
                                     ),
                                     const ProjectSpacers.spacer5(),

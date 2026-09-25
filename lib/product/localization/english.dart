@@ -99,6 +99,13 @@ const Map<String, String> englishTranslate = {
   'report': 'Report',
   'report_user': 'Report User',
   'block': 'Block',
+  'delete_account': 'Delete Account',
+  'delete_account_confirm_title': 'Delete your account?',
+  'delete_account_confirm_body':
+      'Your account, diaries, friendships and all your data will be permanently deleted. This cannot be undone.',
+  'account_deleted': 'Your account has been deleted.',
+  'account_delete_failed': 'Could not delete account, please try again.',
+  'account_delete_wrong_password': 'Wrong password, account was not deleted.',
   'unblock': 'Unblock',
   'block_user_confirm_title': 'Block this user?',
   'block_user_confirm_body':

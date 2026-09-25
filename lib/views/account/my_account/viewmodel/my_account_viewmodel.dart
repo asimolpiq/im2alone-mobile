@@ -8,7 +8,10 @@ import 'package:get/get.dart';
 import 'package:im2alone/core/controller/auth_controller.dart';
 import 'package:im2alone/core/controller/fragment_controller.dart';
 import 'package:im2alone/core/helpers/caching_manager.dart';
+import 'package:im2alone/core/helpers/request_helper.dart';
 import 'package:im2alone/product/mixins/get_user_stats_mixin.dart';
+import 'package:im2alone/service/user/user_service.dart';
+import 'package:im2alone/views/auth/login/login_view.dart';
 
 import '../../../../model/user_utils/user_stats_model.dart';
 import '../../../../product/components/snackbar/custom_snacbars.dart';
@@ -24,10 +27,14 @@ abstract class MyAccountViewModel extends State<MyAccount>
       Get.find(tag: "fragmentmanager");
   Rx<UserStatsModel?> userStats = UserStatsModel().obs;
   late ConfettiController controllerCenter;
+  late UserService userService;
+  final TextEditingController deletePasswordController =
+      TextEditingController();
 
   @override
   void initState() {
     super.initState();
+    userService = UserService(RequestHelper().dio);
     controllerCenter = ConfettiController();
     checkBirthday();
     getMyStats();
@@ -36,6 +43,7 @@ abstract class MyAccountViewModel extends State<MyAccount>
   @override
   void dispose() {
     controllerCenter.dispose();
+    deletePasswordController.dispose();
     super.dispose();
   }
 
@@ -48,6 +56,57 @@ abstract class MyAccountViewModel extends State<MyAccount>
       Get.showSnackbar(
           CustomSnackbars.errorSnack(error: (response.error ?? "error").tr));
     }
+  }
+
+  deleteAccount(String password) async {
+    final error = await userService.deleteAccount(password);
+    if (error == null) {
+      Get.offAll(() => const LoginView());
+      authController.logout();
+      Get.showSnackbar(
+          CustomSnackbars.successSnack(message: 'account_deleted'.tr));
+    } else {
+      Get.showSnackbar(CustomSnackbars.errorSnack(error: error.tr));
+    }
+  }
+
+  AlertDialog deleteAccountDialog(BuildContext context) {
+    deletePasswordController.clear();
+    return AlertDialog(
+      title: Text('delete_account_confirm_title'.tr),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('delete_account_confirm_body'.tr),
+          const ProjectSpacers.spacer15(),
+          TextField(
+            controller: deletePasswordController,
+            obscureText: true,
+            decoration: InputDecoration(hintText: 'password'.tr),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Get.back(),
+          child: Text('cancel'.tr),
+        ),
+        TextButton(
+          onPressed: () {
+            final password = deletePasswordController.text;
+            if (password.isEmpty) {
+              Get.showSnackbar(
+                  CustomSnackbars.errorSnack(error: 'password_error'.tr));
+              return;
+            }
+            Get.back();
+            deleteAccount(password);
+          },
+          child: Text('delete_account'.tr,
+              style: TextStyle(color: Theme.of(context).colorScheme.error)),
+        ),
+      ],
+    );
   }
 
   checkBirthday() {
